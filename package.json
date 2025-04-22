@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon --watch src --exec \"npx babel-node src\"",
     "babel-node": "babel-node",
     "build": "cross-env NODE_ENV=production BABEL_ENV=production npx babel src -d dist --no-comments --source-maps false",
+    "vercel-build": "cross-env NODE_ENV=production BABEL_ENV=production npx babel src -d dist --no-comments --source-maps false",
     "start": "node dist",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\"",
     "test-watch": "ava --watch",
