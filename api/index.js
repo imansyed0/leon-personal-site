@@ -14,9 +14,10 @@ async function getExpressApp() {
     
     // In production, ES modules are transpiled to CommonJS
     if (process.env.NODE_ENV === 'production') {
-      initialize = require('../src/initialize');
-      createMiddleware = require('../src/middleware/index');
-      createApi = require('../src/api/index');
+      const prodRoot = path.join(__dirname, '../dist');
+      initialize = require(path.join(prodRoot, 'initialize'));
+      createMiddleware = require(path.join(prodRoot, 'middleware/index'));
+      createApi = require(path.join(prodRoot, 'api/index'));
       
       // Handle both export styles
       initialize = initialize.default || initialize;
