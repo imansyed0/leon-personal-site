@@ -2,6 +2,8 @@
 /logs
 /npm-debug.log
 /node_modules
+/timemap/node_modules
+/timemap/build
 .DS_Store
 *.swp
 
@@ -13,3 +15,5 @@
 tags
 tags.lock
 tags.temp
+timemap/.env.development.local
+.vercel
