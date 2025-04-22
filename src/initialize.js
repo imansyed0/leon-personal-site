@@ -1,4 +1,5 @@
 import StoreJson from './models/StoreJson'
+import StoreJsonReadOnly from './models/StoreJsonReadOnly'
 import fetchers from './lib/Fetcher'
 import Controller from './lib/Controller'
 import R from 'ramda'
@@ -15,7 +16,13 @@ try {
   config = require('./config.js').default
 }
 
+// Determine if we're running in a serverless environment (Vercel)
+const isServerless = process.env.VERCEL === '1' || process.env.AWS_LAMBDA_FUNCTION_NAME
+
 export default callback => {
+  // Use read-only storage in serverless environments
+  const Storage = isServerless ? StoreJsonReadOnly : StoreJson
+  
   return Promise.resolve().then(() => {
     return Object.keys(config).map(fType => {
       // skip config attrs that don't have corresponding fetchers
@@ -27,7 +34,7 @@ export default callback => {
         delete otherArgs.tabs
         return {
           name: sheet.name,
-          fetcher: new FFetcher(new StoreJson(), sheet.name, sheet.tabs, ...Object.values(otherArgs))
+          fetcher: new FFetcher(new Storage(), sheet.name, sheet.tabs, ...Object.values(otherArgs))
         }
       })
     })
