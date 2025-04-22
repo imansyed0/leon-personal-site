@@ -6,16 +6,34 @@ const dotenv = require('dotenv');
 // Load .env into process.env (both locally and during build on Vercel)
 dotenv.config();
 
-// Bring in the existing (ES‑module) code. It is written with import/export so we need dynamic `import()`.
-// Vercel's Node function runtime supports ESM as long as we use dynamic import.
+// Bring in the existing (ES‑module) code
 async function getExpressApp() {
-  // Dynamically import modules so that Babel's `export default` is respected
   try {
-    const [{ default: initialize }, { default: createMiddleware }, { default: createApi }] = await Promise.all([
-      import('../src/initialize.js'),
-      import('../src/middleware/index.js'),
-      import('../src/api/index.js'),
-    ]);
+    // Use require directly because the code will already be transpiled in production
+    let initialize, createMiddleware, createApi;
+    
+    // In production, ES modules are transpiled to CommonJS
+    if (process.env.NODE_ENV === 'production') {
+      initialize = require('../src/initialize');
+      createMiddleware = require('../src/middleware/index');
+      createApi = require('../src/api/index');
+      
+      // Handle both export styles
+      initialize = initialize.default || initialize;
+      createMiddleware = createMiddleware.default || createMiddleware;
+      createApi = createApi.default || createApi;
+    } else {
+      // In development, use dynamic import for ESM support
+      const [initMod, middleMod, apiMod] = await Promise.all([
+        import('../src/initialize.js'),
+        import('../src/middleware/index.js'),
+        import('../src/api/index.js'),
+      ]);
+      
+      initialize = initMod.default;
+      createMiddleware = middleMod.default;
+      createApi = apiMod.default;
+    }
 
     const config = process.env;
     const app = express();
@@ -35,6 +53,18 @@ async function getExpressApp() {
       const cors = require('cors');
       app.use(cors());
     }
+
+    // Add direct image serving from src/public/images
+    app.use('/images', (req, res, next) => {
+      const imagePath = path.join(__dirname, '../src/public/images', req.path);
+      console.log('Serving image from:', imagePath);
+      res.sendFile(imagePath, err => {
+        if (err) {
+          console.error('Error sending image:', err);
+          res.status(404).send('Image not found');
+        }
+      });
+    });
 
     let controllerReadyResolve;
     const controllerReady = new Promise((resolve) => (controllerReadyResolve = resolve));
