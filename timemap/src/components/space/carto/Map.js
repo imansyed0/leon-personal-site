@@ -105,18 +105,25 @@ class Map extends React.Component {
   }
 
   getTileUrl(tiles) {
+    console.log('Map tiles requested:', tiles);
+    console.log('MAPBOX_TOKEN available:', !!process.env.MAPBOX_TOKEN);
+    
     if (
       tiles === "openstreetmap" ||
       !process.env.MAPBOX_TOKEN ||
       process.env.MAPBOX_TOKEN === defaultToken
     ) {
-      return "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png";
+      console.log('Using OpenStreetMap tiles');
+      // Try a different OpenStreetMap tile provider that may have better CORS support
+      return "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
     }
 
     if (supportedMapboxMap.indexOf(this.props.ui.tiles) !== -1) {
+      console.log('Using Mapbox style:', this.props.ui.tiles);
       return `https://api.mapbox.com/styles/v1/mapbox/${this.props.ui.tiles}/tiles/{z}/{x}/{y}?access_token=${process.env.MAPBOX_TOKEN}`;
     }
 
+    console.log('Using default Mapbox style');
     return `https://api.mapbox.com/styles/v1/mapbox/${supportedMapboxMap[0]}/tiles/{z}/{x}/{y}?access_token=${process.env.MAPBOX_TOKEN}`;
   }
 
@@ -136,6 +143,33 @@ class Map extends React.Component {
       this.tileLayer.setUrl(url);
     } else {
       this.tileLayer = L.tileLayer(url);
+      
+      // Add error handling for tile loading issues
+      this.tileLayer.on('tileerror', (error) => {
+        console.error('Tile loading error:', error);
+        
+        // If we're already using the primary OpenStreetMap URL, try alternative providers
+        if (url === "https://tile.openstreetmap.org/{z}/{x}/{y}.png") {
+          console.log('Trying alternative OSM tile provider');
+          
+          // Remove the failed tile layer
+          if (this.map && this.tileLayer) {
+            this.map.removeLayer(this.tileLayer);
+          }
+          
+          // Try alternative providers in sequence
+          const alternativeUrls = [
+            "https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+            "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
+            "https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+          ];
+          
+          // Create new tile layer with the first alternative
+          this.tileLayer = L.tileLayer(alternativeUrls[0]);
+          this.tileLayer.addTo(this.map);
+        }
+      });
+      
       this.tileLayer.addTo(this.map);
     }
   }
