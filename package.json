@@ -52,7 +52,12 @@
   "babel": {
     "presets": [
       "@babel/preset-env"
-    ]
+    ],
+    "env": {
+      "production": {
+        "sourceMaps": false
+      }
+    }
   },
   "ava": {
     "files": [
