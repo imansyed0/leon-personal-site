@@ -1,7 +1,7 @@
 module.exports = {
   title: 'example',
   display_title: 'example',
-  SERVER_ROOT: 'http://localhost:4040',
+  SERVER_ROOT: '',
   EVENTS_EXT: '/api/timemap_data/export_events/deeprows',
   ASSOCIATIONS_EXT: '/api/timemap_data/export_associations/deeprows',
   SOURCES_EXT: '/api/timemap_data/export_sources/deepids',

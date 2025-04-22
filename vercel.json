@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["src/**", "data/**", "views/**"]
+      }
+    },
+    {
+      "src": "timemap/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build",
+        "devCommand": "cross-env PORT=$PORT npm --prefix timemap run dev",
+        "includeBuildOutput": false
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(api|images)/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "^/$",
+      "dest": "/timemap/"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/timemap/$1"
+    }
+  ]
+} 

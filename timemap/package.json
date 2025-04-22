@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider node scripts/start.js",
-    "build": "NODE_ENV=production node scripts/build.js",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production node scripts/build.js",
     "dev:wsl": "HOST=0.0.0.0 npm run dev",
     "test": "node scripts/test.js --silent",
     "test:ava": "NODE_ENV=production ava --verbose",

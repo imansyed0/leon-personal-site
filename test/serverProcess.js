@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import childProcess from 'child_process'
 
 const SERVER_LAUNCH_WAIT_TIME = 10 * 1000
-const SERVER_ROOT = 'http://localhost:4040'
+const SERVER_ROOT = ''
 let serverProc = null
 let serverExited = false
 function checkStatus (res) {

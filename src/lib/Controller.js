@@ -14,9 +14,9 @@ class Controller {
   }
 
   blueprints () {
-    return Object.keys(this.fetchers).map(
-      sheet => this.fetchers[sheet].blueprints
-    ).reduce((acc, curr) => acc.concat(curr))
+    return Object.keys(this.fetchers)
+      .map((sheet) => this.fetchers[sheet].blueprints || [])
+      .reduce((acc, curr) => acc.concat(curr), [])
   }
 
   rebuildBlueprintsAsync () {
