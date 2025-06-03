@@ -25,8 +25,6 @@ import NarrativeControls from "./controls/NarrativeControls.js";
 
 import colors from "../common/global";
 import { binarySearch, insetSourceFrom } from "../common/utilities";
-import hash from "object-hash";
-import { CSSTransition } from "react-transition-group";
 
 class Dashboard extends React.Component {
   constructor(props) {
