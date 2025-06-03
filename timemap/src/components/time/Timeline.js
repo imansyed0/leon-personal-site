@@ -397,6 +397,22 @@ class Timeline extends React.Component {
           hideInfo={isNarrative}
         />
         <div className="timeline-content" style={heightStyle}>
+          <div className="timeline-category-labels">
+            {categories && categories.map((cat, idx) => (
+              <div 
+                key={idx}
+                className="category-label-item"
+                style={{
+                  position: 'absolute',
+                  top: `${this.getY({ category: cat, project: null })}px`,
+                  left: '10px',
+                  transform: 'translateY(-50%)'
+                }}
+              >
+                {cat}
+              </div>
+            ))}
+          </div>
           <div
             id={this.props.ui.dom.timeline}
             className="timeline"

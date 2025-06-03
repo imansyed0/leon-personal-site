@@ -35,25 +35,14 @@ class TimelineCategories extends React.Component {
     }
 
     return (
-      <>
-        <g
-          className="tick"
-          style={{ strokeWidth }}
-          opacity="0.5"
-          transform={`translate(0,${this.props.getCategoryY(cat)})`}
-        >
-          <line x1={dims.marginLeft} x2={dims.width - dims.width_controls} />
-        </g>
-        <g
-          className="tick"
-          opacity="1"
-          transform={`translate(0,${this.props.getCategoryY(cat)})`}
-        >
-          <text x={dims.marginLeft - 5} dy="0.32em">
-            {cat}
-          </text>
-        </g>
-      </>
+      <g
+        className="tick"
+        style={{ strokeWidth }}
+        opacity="0.5"
+        transform={`translate(0,${this.props.getCategoryY(cat)})`}
+      >
+        <line x1={dims.marginLeft} x2={dims.width - dims.width_controls} />
+      </g>
     );
   }
 

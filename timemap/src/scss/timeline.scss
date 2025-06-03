@@ -121,6 +121,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+
+    .timeline-category-labels {
+      position: absolute;
+      left: 0;
+      top: 26px;
+      width: 150px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      padding-right: 70px;
+
+      .category-label-item {
+        font-size: 10px;
+        color: $midwhite;
+        text-transform: capitalize;
+        white-space: nowrap;
+        pointer-events: auto;
+        text-align: right;
+        width: 100%;
+      }
+    }
 
     .timeline-labels {
       padding-top: 2px;
@@ -160,8 +182,8 @@
 
     .timeline {
       /*width: calc(100% - 200px);*/
-      width: calc(100% - 40px);
-      margin-left: 20px;
+      width: calc(100% - 180px);
+      margin-left: 160px;
       box-sizing: border-box;
       float: left;
 
