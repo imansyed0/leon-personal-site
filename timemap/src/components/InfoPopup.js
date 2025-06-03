@@ -8,7 +8,16 @@ const Infopopup = ({ isOpen, onClose, language, styles }) => (
     content={copy[language].legend.default.intro}
     onClose={onClose}
     isOpen={isOpen}
-    styles={styles}
+    styles={{
+      ...styles,
+      wrapper: {
+        ...styles?.wrapper,
+        position: 'fixed',
+        right: '20px',
+        bottom: '20px',
+        maxWidth: '300px'
+      }
+    }}
   />
 );
 

@@ -328,6 +328,9 @@ export function typeForPath(path) {
   let type;
   path = path.trim();
   switch (true) {
+    case /^gdrive:/.test(path):
+      type = "Video";
+      break;
     case /\.((png)|(jpg)|(jpeg))$/.test(path):
       type = "Image";
       break;
@@ -346,7 +349,6 @@ export function typeForPath(path) {
     case /.+(t\.me).+/.test(path):
       type = "Telegram";
       break;
-
     default:
       type = "Unknown";
       break;

@@ -103,7 +103,7 @@ class Toolbar extends React.Component {
                   this.goToNarrative(narr);
                 }}
               >
-                <p>{narr.id}</p>
+                {/* <p>{narr.id}</p> */}
                 <p>
                   <small>{trimAndEllipse(narr.desc, 120)}</small>
                 </p>

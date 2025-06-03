@@ -228,9 +228,6 @@ class LocalFetcher extends Fetcher {
   constructor (db, name, bps, path) {
     super(db, name, bps)
     this.path = path
-    this.update().then(res =>
-      console.log(`${res ? 'Successful' : 'Couldn\'t'} update ${name}`)
-    )
   }
 
   update () {

@@ -11,6 +11,15 @@ const TITLE_LENGTH = 50;
 //    - only show cover image and then lightbox when clicked
 //    - show video control plane?
 // TODO landscape image doesn't fit in box properly
+
+const getGoogleDriveUrl = (src) => {
+  const match = src.match(/gdrive:(.+)/);
+  if (match) {
+    return `https://drive.google.com/file/d/${match[1]}/preview`;
+  }
+  return src;
+};
+
 const Media = ({ src, title }) => {
   const videoRef = useRef();
   const onVideoStart = useCallback(() => {
@@ -21,6 +30,8 @@ const Media = ({ src, title }) => {
   }, []);
 
   const type = typeForPath(src);
+  console.log('Media type:', type, 'for src:', src);
+  
   const formattedTitle =
     title && title.length > TITLE_LENGTH
       ? `${title.slice(0, TITLE_LENGTH + 1)}...`
@@ -28,6 +39,39 @@ const Media = ({ src, title }) => {
 
   switch (type) {
     case "Video":
+      const isGoogleDrive = src.startsWith('gdrive:');
+      if (isGoogleDrive) {
+        const videoUrl = getGoogleDriveUrl(src);
+        return (
+          <div className="card-cell media">
+            {title && <h4 title={title}>{formattedTitle}</h4>}
+            <div style={{
+              position: 'relative',
+              paddingBottom: '56.25%',
+              height: 0,
+              overflow: 'hidden',
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              borderRadius: '4px'
+            }}>
+              <iframe
+                src={videoUrl}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 'none'
+                }}
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title={title || "Video"}
+              />
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="card-cell media">
           {title && <h4 title={title}>{formattedTitle}</h4>}
@@ -35,8 +79,6 @@ const Media = ({ src, title }) => {
             onMouseEnter={onVideoStart}
             onMouseLeave={onVideoStop}
             ref={videoRef}
-            // controls
-            // controlsList="nodownload noremoteplayback"
             disablePictureInPicture
           >
             <source src={src} />

@@ -10,6 +10,7 @@ import Toolbar from "./Toolbar";
 import InfoPopup from "./InfoPopup";
 import Notification from "./Notification";
 import TemplateCover from "./TemplateCover";
+import IntroPopup from "./IntroPopup";
 
 import Popup from "./atoms/Popup";
 import StaticPage from "./atoms/StaticPage";
@@ -38,6 +39,9 @@ class Dashboard extends React.Component {
     this.findEventIdx = this.findEventIdx.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.selectNarrativeStep = this.selectNarrativeStep.bind(this);
+    this.state = {
+      isIntroVisible: true
+    };
   }
 
   componentDidMount() {
@@ -393,7 +397,11 @@ class Dashboard extends React.Component {
           isOpen={app.flags.isInfopopup}
           onClose={actions.toggleInfoPopup}
         />
-        {this.renderIntroPopup(false, popupStyles)}
+        <IntroPopup
+          language={app.language}
+          isOpen={this.state.isIntroVisible}
+          onClose={() => this.setState({ isIntroVisible: false })}
+        />
         {app.debug ? (
           <Notification
             isNotification={app.flags.isNotification}
