@@ -1,1 +1,787 @@
-[{"associations":["n1","c1"],"sources":["src1"],"description":"The Honduran Government, led by President Porfirio Lobo Sosa, enacts a new General Mining Law, lifting a seven-year moratorium on new mining concessions. The General Mining Law is criticised by the Honduran National Coalition of Environmental Networks (CONROA) for failing to prohibit open pit mining, adequately protect community water sources, foster adequate consultation prior to concessions being granted, and for a lack of transparency regarding the financial and technical aspects of mining projects.","date":"01/23/2013","time":"","location":"Ministerio Público, Tegucigalpa","latitude":"","longitude":""},{"associations":["n1","c1"],"sources":["src2"],"description":"The Honduran government enacts Decree 252-2013, which reduces the extent of the protected area of the Carlos Escaleras Mejia National Park by 217 hectares. The Carlos Escaleras Mejia National Park national park is named after Carlos Escaleras Mejía, a Honduran environmental activist and progressive politician who was assassinated on 18 October 1997.","date":"12/23/2013","time":"","location":"ASP Mining Concession, Montaña de Botaderos National Park","latitude":"15.43185542","longitude":"-86.14444621"},{"associations":["n1","c6"],"sources":["src3"],"description":"The Honduran government grants Inversiones Los Pinares (then known as EMCO Mining Company) a ten-year license to exploit iron oxide deposits at two concessions within the Carlos Escaleras Mejia National Park. Both sites, known as ASP and ASP2, fall within the pre-Decree 252-2013 protected areas of the national park. A later investigation by Contracorriente revealed collusion between Lenir Pérez (the owner of Los Pinares) and the state in the establishment of these mining concessions, with Pérez admitting in an email: “The park had been declared a national park 12 months earlier and we brought all the actors together and asked them to reconsider.” ","date":"01/28/2014","time":"","location":"ASP Mining Concession, Montaña de Botaderos National Park","latitude":"15.4746381","longitude":"-85.93072008"},{"associations":["n1","c6"],"sources":["src4"],"description":"Inversiones ECOTEK (part of EMCO Group) obtains a provisional licence to construct an iron pelletizing plant at a site in Tocoa in direct proximity to the river Guapinol. Shortly after, construction begins on an access road connecting the planned mine site to the pelletizing plant.","date":"02/01/2018","time":"","location":"ECOTEK Processing Plant, Tocoa","latitude":"15.62037347","longitude":"-86.02734095"},{"associations":["n1","c7"],"sources":["src5"],"description":"Guapinol residents begin sharing photos on social media showing the Guapinol river appearing chocolate brown and thick with muddy sediment. Locals attribute this to the construction of the access road to the mining concession, which they suggest is causing heavy sediment to contaminate the water of the Guapinol and San Pedro Rivers.","date":"04/26/2018","time":"","location":"Rio Guapinol, Guapinol","latitude":"15.6187464","longitude":"-86.0308662"},{"associations":["n2","c2"],"sources":["src6"],"description":"Residents organise an urgent community meeting to discuss the mining project.","date":"05/07/2018","time":"","location":"Centro Basico, Guapinol","latitude":"15.61450205","longitude":"-86.03882949"},{"associations":["n2","c2"],"sources":["src7"],"description":"Three days after an initial community meeting, residents organise a peaceful demonstration outside Caja Rural, Guapinol, the site of a meeting between Los Pinares and the Chief Inspector of Drinking Water.","date":"05/10/2018","time":"","location":"Caja Rural, Guapinol","latitude":"15.61551633","longitude":"-86.03585732"},{"associations":["n1","c7"],"sources":["src8"],"description":"Residents circulate further images of the contaminated river, as well as videos of contaminated tap water in homes in Guapinol.","date":"07/30/2018","time":"","location":"Rio Guapinol, Guapinol","latitude":"","longitude":""},{"associations":["n2","c2"],"sources":["src9"],"description":"In protest of the ongoing mining activity, Guapinol residents set up a camp -  commonly known as the ‘Guapinol Encampment in Defence of Water and Life' - on the access road​ to the mine. ","date":"08/01/2018","time":"","location":"Guapinol Encampment in Defence of Water and Life","latitude":"15.61624374","longitude":"-86.01605452"},{"associations":["n3","c3"],"sources":["src10"],"description":"During a dispute between the residents of the camp and Inversiones Los Pinares staff and contracted security personnel, a security official shoots and wounds community member Rigoberto Bonilla Hernández. In response, the director of security is detained by protesters and handed to police. A vehicle and two containers belonging to Inversiones Los Pinares are allegedly set alight during the dispute.","date":"09/07/2018","time":"","location":"Guapinol Encampment in Defence of Water and Life","latitude":"15.61624374","longitude":"-86.01605452"},{"associations":["n4","c4"],"sources":["src11"],"description":"The prosecutor’s office issued arrest warrants, approved by a National Jurisdiction judge in San Pedro Sula, for the arrest of eighteen community members. The defendants were charged with trespassing (or “unlawful occupation”) and property damage.","date":"10/01/2018","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"","longitude":""},{"associations":["n3","c3"],"sources":["src12"],"description":"[CLICK IMAGE TO PLAY VIDEO] On the basis of a judicial eviction order at least 1,200 police and army personnel, including a specialist militarised police unit known as ‘TIGRE’, are deployed to evict the encampment. Witnesses report live rounds and tear gas being used, and protesters being beaten. The altercation results in the death of two military personnel and one community member, with over a dozen individuals wounded.","date":"10/27/2018","time":"","location":"Guapinol Encampment in Defence of Water and Life","latitude":"15.61624374","longitude":"-86.01605452"},{"associations":["n4","c4"],"sources":["src13"],"description":"Thirteen community members voluntarily appear before a court in La Ceiba, where they learn of a second arrest warrant accusing 31 community members of unjust deprivation of liberty, aggravated arson, theft, and unlawful association in relation to the events that took place 7 September 2018. They are subsequently held in pretrial detention in Tegucigalpa.","date":"02/21/2019","time":"","location":"Edificio Judicial de La Ceiba, La Ceiba","latitude":"15.76958599","longitude":"-86.75822442"},{"associations":["n2","c2"],"sources":["src14"],"description":"Members of the Municipal Committee for the Defense of Common and Public Goods (CMDBCP), the San Alonso Rodríguez Foundation, and the Coalition Against Impunity, file a constitutional challenge against Decree 252-2013.","date":"02/25/2019","time":"","location":"","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src15"],"description":"A National Jurisdiction judge in Tegucigalpa dismisses the charges against the thirteen defenders during the initial hearings. The judge considered that the actions fell within the Honduran Secretary of Human Rights ’definition of a “socio-environmental conflict”, and decided that the protest was legitimate, given it was the only tool available for civil society actors to gain the attention of relevant State officials.","date":"03/02/2019","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n4","c4"],"sources":["src16"],"description":"The detainees are released.","date":"03/06/2019","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src17"],"description":"Seven additional community members voluntarily appear before a National Jurisdiction judge in Tegucigalpa to address charges from the second arrest warrant. They arrive carrying a casket representing an eighth community member, who is listed in the same charges despite being deceased.","date":"08/26/2019","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n3","c3"],"sources":["src18"],"description":"Roberto Antonio Argueta Tejada, one of 32 environmental defenders criminalised as part of the Guapinol case, is shot to death by several heavily armed strangers near the San Isidro hospital in Tocoa.  ","date":"08/28/2019","time":"","location":"Hospital San Isidro, Tocoa","latitude":"15.66234819","longitude":"-86.00126849"},{"associations":["n4","c4"],"sources":["src19"],"description":"In Tegucigalpa, National Jurisdiction Judge Claudio Aguilar grants Arnold Javier Alemán a temporary dismissal on the charges of illegal trespass and damages, leaving the remainder of the charges intact.","date":"08/30/2019","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n4","c4"],"sources":["src20"],"description":"National Jurisdiction Judge Lizeth Vallecillo issues a ruling that links the nine environmental defenders to crimes of aggravated arson and unjust deprivation of liberty, while dismissing the crimes of illicit association and theft. They are subsequently placed in pretrial detention in Olanchito.","date":"09/01/2019","time":"","location":"Tocoa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n4","c4"],"sources":["src21"],"description":"The National Jurisdiction Court of Appeals rejects a habeas corpus petition filed by the defence attorney. In response, prominent international advocacy organizations, including the Due Process of Law Foundation (DPLF), Human Rights Research and Education Centre, and the Collective Corporation of Lawyers “José Alvear Restrepo” filed a joint amicus brief echoing the defense attorneys ’previously expressed concerns and asserting that the community leaders ’detention was in violation of both domestic and international law.","date":"09/25/2019","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n4","c4"],"sources":["src22"],"description":"Following another hearing, the decision is made to extend the pretrial detention of the Guapinol activists.","date":"11/06/2019","time":"","location":"Centro Penal, Olanchito","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n3","c3"],"sources":["src23"],"description":"A series of break-ins are reported at the Tocoa office of the Coordinadora de Organizaciones Populares del Aguán (COPA), a conglomerate of organisations defending human, enviornmental, and social rights in the Aguan Valley Region. Unidentified individuals stole a computer and printer and ransacked drawers filled with documents. COPA member Carlos Leonel George reported the incident to the police. Rather than investigate the break-ins, the police arrest Carlos, who was one of the twelve Guapinol community members who voluntarily went to court in February 2019, only to have all the charges subsequently dismissed.","date":"12/01/2019","time":"","location":"Tocoa","latitude":"","longitude":""},{"associations":["n4","c5"],"sources":["src24"],"description":"The Center for International Justice and Law (CEJIL) submits an amicus brief to the National Jurisdiction Court of Appeals.","date":"02/27/2020","time":"","location":"","latitude":"","longitude":""},{"associations":["n4","c5"],"sources":["src25"],"description":"A group of civil society organizations, including the National Committee against Torture and Cruel, Inhumane, and Degrading Treatment (MNP-CONAPREV) and the Committee for Family of the Detained and Disappeared (COFADEH), amongst others, file a second habeas corpus petition with the Supreme Court of Honduras.","date":"03/24/2020","time":"","location":"","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src26"],"description":"In Tegucigalpa, the National Jurisdiction Court of Appeals a dismissal previously issued in favour of human rights defenders Juan Antonio López, Carlos Leonel George, Reinaldo Domínguez, José Adalid Cedillo and Marco Tulio Ramos.","date":"08/13/2020","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"14.10299397","longitude":"-87.18792633"},{"associations":["n4","c5"],"sources":["src27"],"description":"The Honduran Human Rights Ombudsperson writes a public letter directed at the judicial authorities which describes the detained members of the CMDBCP as human rights activists engaged in legitimate protest activities.","date":"09/22/2020","time":"","location":"","latitude":"","longitude":""},{"associations":["n3","c3"],"sources":["src28"],"description":"Joaquin Morazan Erazo, named in the 2018 arrest warrant, is shot and killed at his home in Tocoa, Colon.","date":"10/13/2020","time":"","location":"Tocoa","latitude":"15.65762332","longitude":"-85.99782398"},{"associations":["n4","c5"],"sources":["src29"],"description":"The Office of the United Nations High Commissioner for Human Rights (UN OHCHR) issues a country report raising concerns about the misuse of the judicial system in the Guapinol case.","date":"02/25/2021","time":"","location":"","latitude":"","longitude":""},{"associations":["n4","c5"],"sources":["src30"],"description":"The UN Working Group on Arbitrary Detention declares the Guapinol Eight - Porfirio Sorto Cedillo, José Abelino Cedillo, Kelvin Alejandro Romero, Arnol Javier Alemán, Ever Alexander Cedillo, Orbin Nahún Hernández, and Daniel Márquez - to be arbitrarily detained and calls for their release.","date":"03/03/2021","time":"","location":"","latitude":"","longitude":""},{"associations":["n2","c7"],"sources":["src52"],"description":"Members of the CMDBPC present an environmental report to the Secretariat of Natural Resources and Environment containing evidence that mining activity and related road infrastructure in the Carlos Escaleras Mejia National Park has negatively impacted 35 micro-basins of the Guapinol and San Pedro rivers.","date":"06/27/2021","time":"","location":"ASP Mining Concession, Montaña de Botaderos National Park","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src31"],"description":"The preventive detention of the Guapinol Eight is extended for an six additional months.","date":"08/26/2021","time":"","location":"Centro Penal, Olanchito","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src32"],"description":"The trial against the Guapinol Eight begins after over two years of pre-trial detention.","date":"12/01/2021","time":"","location":"Juzgado de Letra, Trujillo","latitude":"","longitude":""},{"associations":["n4","c5"],"sources":["src33"],"description":"Amnesty International writes an open letter expressing concerns about irregularities in the prosecution of the Guapinol Eight and describing those standing trial as 'victims of arbitrary detention and unfounded criminal prosecution stemming solely from their human rights work.' ","date":"12/11/2021","time":"","location":"","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src34"],"description":"A court in Trujillo finds six of the Guapinol Eight guilty of several charges including illegal deprivation of liberty and aggravated damages against a contractor of Inversiones Los Pinares, and aggravated damages against the company itself.","date":"02/09/2022","time":"","location":"Juzgado de Letra, Trujillo","latitude":"","longitude":""},{"associations":["n4","c4"],"sources":["src35"],"description":"One day after the sentencing, the Supreme Court declares a mistrial and grants injunctions in favour of the Guapinol Eight.","date":"02/10/2022","time":"","location":"Corte Suprema de Justicia, Tegucigalpa","latitude":"14.0728134","longitude":"-87.20092275"},{"associations":["n4","c4"],"sources":["src36"],"description":"Environmental rights defenders José Daniel Márquez, José Abelino Cedillo, Ewer Cedillo, Kelvin Romero, Orbin Nahún Hernández and Porfirio Soto, are released on bail after 914 days spent in pre-trial detention.","date":"02/25/2022","time":"","location":"Centro Penal, Olanchito","latitude":"","longitude":""},{"associations":["n3","c3"],"sources":["src37"],"description":"Aly Magdaleno Domínguez Ramos and Jairo Bonilla Ayala, two residents criminalised for their opposition to the mining project, are murdered in Guapinol.","date":"01/07/2023","time":"","location":"Guapinol","latitude":"15.61551388","longitude":"-86.03803251"},{"associations":["n4","c4"],"sources":["src38"],"description":"Six activists discover they may still face criminal prosecution as a result of an appeal by the Prosecutor's office.","date":"02/07/2023","time":"","location":"","latitude":"","longitude":""},{"associations":["n3","c3"],"sources":["src39"],"description":"Guapinol community members report drones surveilling their homes. ","date":"02/21/2023","time":"","location":"Guapinol","latitude":"15.61551388","longitude":"-86.03803251"},{"associations":["n3","c3"],"sources":["src40"],"description":"Oquelí Domínguez, brother of Aly and Reynaldo Domínguez, is murdered in his home in Guapinol.","date":"06/15/2023","time":"","location":"Guapinol","latitude":"15.61551388","longitude":"-86.03803251"},{"associations":["n2","c2"],"sources":["src41"],"description":"A Public Assembly, scheduled to discuss the future of the Los Pinares-ECOTEK megaproject, is attended by more than 2,500 community members. The meeting is prematurely suspended by Mayor Adán Fúnez.","date":"12/09/2023","time":"","location":"Instituto Froylan Turcios, Tocoa","latitude":"15.65779762","longitude":"-85.99589644"},{"associations":["n5","c6"],"sources":["src42"],"description":"The original permits for the ASP and ASP2 mining concessions expire.","date":"01/28/2024","time":"","location":"ASP Mining Concession, Montaña de Botaderos National Park","latitude":"","longitude":""},{"associations":["n2","c2"],"sources":["src43"],"description":"A second Public Assembly is called by Mayor Adán Fúnez. The assembly is suspended following a legal appeal filed by the CMDBPC on the grounds that it was organised without the required support of municipal institutions.","date":"01/31/2024","time":"","location":"Alcaldia, Tocoa","latitude":"","longitude":""},{"associations":["n5","c6"],"sources":["src44"],"description":"Plans for a petroleum coke thermoelectric plant are approved at a meeting convened by the Tocoa Mayor’s Office. The plant will form part of the Los Pinares-ECOTEK megaproject, in addition to the two mining concessions and an iron oxide processing plant. The legitimacy of the meeting and its outcome are disputed by the CMDBCP, who argue that the Mayor did not follow legal requirements to engage with relevant stakeholders during the decision-maming process.","date":"06/13/2024","time":"","location":"Alcaldia, Tocoa","latitude":"15.6557397","longitude":"-86.00974201"},{"associations":["n5","c1"],"sources":["src45"],"description":"The Honduran government adopts Executive Decree 18-2024, restoring the original layout of Carlos Escaleras National Park and guaranteeing the protection of the area from future mining activity.","date":"08/14/2024","time":"","location":"Ministerio Público, Tegucigalpa","latitude":"","longitude":""},{"associations":["n3","c3"],"sources":["src46"],"description":"Juan López, Coordinator of the CMDBPC, is shot dead by a group of armed individuals outside of his workplace, the San Isidro Labrador parish in Tocoa, Colon.","date":"09/14/2024","time":"","location":"San Isidro Labrador, Tocoa","latitude":"15.6556935","longitude":"-86.00532542"},{"associations":["n4","c4"],"sources":["src47"],"description":"The Second Court of Appeals of La Ceiba reopens criminal proceedings against CMDBPC members Carlos Leonel George, Reynaldo Domínguez, José Adaly Cedillo, Marco Tulio Ramos, and the late Juan López.","date":"09/19/2024","time":"","location":"Edificio Judicial de La Ceiba, La Ceiba","latitude":"15.76958599","longitude":"-86.75822442"},{"associations":["n4","c4"],"sources":["src48"],"description":"Zoe Doralina Guifarro, a judge in Tocoa, Colon, finally grants a definitive letter of freedom to Carlos Leonel George George, Reynaldo Domínguez Ramos, José Adaly Cedillo Mendoza, Marco Tulio Ramos, and the late Juan Antonio López.","date":"10/29/2024","time":"","location":"Palacio de Justicia de Tocoa, Tocoa","latitude":"15.66443994","longitude":"-85.98599913"},{"associations":["n2","c2"],"sources":["src49"],"description":"Residents organise a public press conference calling for the final expulsion of Los Pinares-ECOTEK from the Carlos Escaleras National Park, and the imprisonment of those responsible for the murder of Juan López.","date":"02/26/2025","time":"","location":"Ministerio Público, Tegucigalpa","latitude":"14.09638434","longitude":"-87.18326854"},{"associations":["n6","c4"],"sources":["src50"],"description":"Three Los Pinares-ECOTEK executives - Victor Lorenzo Bernardez, legal representative; Fernando Padilla, superintendent of the environment; and Douglas Alvarenga, superintendent of mines- are summoned before the National Jurisdiction Court accused of illegally exploitating natural resources without a permit and causing aggravated damages in the Carlos Escaleras National Park.","date":"02/28/2025","time":"","location":"Juzgado de Jurisdicción Nacional, Tegucigalpa","latitude":"","longitude":""},{"associations":[],"sources":[],"description":"","date":"","time":"","location":"","latitude":"","longitude":""}]
+[
+  {
+    "associations": [
+      "n1",
+      "c1"
+    ],
+    "sources": [
+      "src1"
+    ],
+    "description": "The Honduran Government, led by President Porfirio Lobo Sosa, enacts a new General Mining Law, lifting a seven-year moratorium on new mining concessions. The General Mining Law is criticised by the Honduran National Coalition of Environmental Networks (CONROA) for failing to prohibit open pit mining, adequately protect community water sources, foster adequate consultation prior to concessions being granted, and for a lack of transparency regarding the financial and technical aspects of mining projects.",
+    "date": "01/23/2013",
+    "time": "",
+    "location": "Ministerio Público, Tegucigalpa",
+    "latitude": "",
+    "longitude": "",
+    "reference_url": "https://legalculturessubsoil.ilcs.sas.ac.uk/legal-actions/1998-2013-honduran-mining-laws/#:~:text=In%202013%2C%20the%20Honduran%20Government%20(led%20by,the%20above%20moratorium%20on%20new%20mining%20concessions."
+  },
+  {
+    "associations": [
+      "n1",
+      "c1"
+    ],
+    "sources": [
+      "src2"
+    ],
+    "description": "The Honduran government enacts Decree 252-2013, which reduces the extent of the protected area of the Carlos Escaleras Mejia National Park by 217 hectares. The Carlos Escaleras Mejia National Park national park is named after Carlos Escaleras Mejía, a Honduran environmental activist and progressive politician who was assassinated on 18 October 1997.",
+    "date": "12/23/2013",
+    "time": "",
+    "location": "ASP Mining Concession, Montaña de Botaderos National Park",
+    "latitude": "15.43185542",
+    "longitude": "-86.14444621",
+    "reference_url": "https://legalculturessubsoil.ilcs.sas.ac.uk/legal-actions/2012-2013-creation-and-reconfiguration-of-montana-de-botaderos-national-park/"
+  },
+  {
+    "associations": [
+      "n1",
+      "c6"
+    ],
+    "sources": [
+      "src3"
+    ],
+    "description": "The Honduran government grants Inversiones Los Pinares (then known as EMCO Mining Company) a ten-year license to exploit iron oxide deposits at two concessions within the Carlos Escaleras Mejia National Park. Both sites, known as ASP and ASP2, fall within the pre-Decree 252-2013 protected areas of the national park. A later investigation by Contracorriente revealed collusion between Lenir Pérez (the owner of Los Pinares) and the state in the establishment of these mining concessions, with Pérez admitting in an email: “The park had been declared a national park 12 months earlier and we brought all the actors together and asked them to reconsider.” ",
+    "date": "01/28/2014",
+    "time": "",
+    "location": "ASP Mining Concession, Montaña de Botaderos National Park",
+    "latitude": "15.4746381",
+    "longitude": "-85.93072008",
+    "reference_url": "https://pbicanada.org/2024/01/26/pbi-honduras-visits-communities-in-tocoa-as-the-los-pinares-asp-mining-concession-is-set-to-expire-on-january-28/"
+  },
+  {
+    "associations": [
+      "n1",
+      "c6"
+    ],
+    "sources": [
+      "src4"
+    ],
+    "description": "Inversiones ECOTEK (part of EMCO Group) obtains a provisional licence to construct an iron pelletizing plant at a site in Tocoa in direct proximity to the river Guapinol. Shortly after, construction begins on an access road connecting the planned mine site to the pelletizing plant.",
+    "date": "02/01/2018",
+    "time": "",
+    "location": "ECOTEK Processing Plant, Tocoa",
+    "latitude": "15.62037347",
+    "longitude": "-86.02734095",
+    "reference_url": "https://legalculturessubsoil.ilcs.sas.ac.uk/wp-content/uploads/2023/08/07-ASP-1-Y-2-eng-03.pdf#:~:text=submits%20requests%20for%20ASP1%20and%20ASP2%20non%2Dmetallic,MiAmbiente+%20grants%20environmental%20permit%20for%20ASP%20project."
+  },
+  {
+    "associations": [
+      "n1",
+      "c7"
+    ],
+    "sources": [
+      "src5"
+    ],
+    "description": "Guapinol residents begin sharing photos on social media showing the Guapinol river appearing chocolate brown and thick with muddy sediment. Locals attribute this to the construction of the access road to the mining concession, which they suggest is causing heavy sediment to contaminate the water of the Guapinol and San Pedro Rivers.",
+    "date": "04/26/2018",
+    "time": "",
+    "location": "Rio Guapinol, Guapinol",
+    "latitude": "15.6187464",
+    "longitude": "-86.0308662",
+    "reference_url": "https://www.facebook.com/photo/?fbid=811035502617239&set=pb.100083594761446.-2207520000"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src6"
+    ],
+    "description": "Residents organise an urgent community meeting to discuss the mining project.",
+    "date": "05/07/2018",
+    "time": "",
+    "location": "Centro Basico, Guapinol",
+    "latitude": "15.61450205",
+    "longitude": "-86.03882949",
+    "reference_url": "https://www.facebook.com/photo/?fbid=811065409280915&set=pb.100083594761446.-2207520000"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src7"
+    ],
+    "description": "Three days after an initial community meeting, residents organise a peaceful demonstration outside Caja Rural, Guapinol, the site of a meeting between Los Pinares and the Chief Inspector of Drinking Water.",
+    "date": "05/10/2018",
+    "time": "",
+    "location": "Caja Rural, Guapinol",
+    "latitude": "15.61551633",
+    "longitude": "-86.03585732",
+    "reference_url": "https://www.facebook.com/810956912625098/photos/pb.100083594761446.-2207520000/811064855947637/?type=3"
+  },
+  {
+    "associations": [
+      "n1",
+      "c7"
+    ],
+    "sources": [
+      "src8"
+    ],
+    "description": "Residents circulate further images of the contaminated river, as well as videos of contaminated tap water in homes in Guapinol.",
+    "date": "07/30/2018",
+    "time": "",
+    "location": "Rio Guapinol, Guapinol",
+    "latitude": "",
+    "longitude": "",
+    "reference_url": "https://www.facebook.com/watch/?v=825384041182385"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src9"
+    ],
+    "description": "In protest of the ongoing mining activity, Guapinol residents set up a camp -  commonly known as the ‘Guapinol Encampment in Defence of Water and Life' - on the access road​ to the mine. ",
+    "date": "08/01/2018",
+    "time": "",
+    "location": "Guapinol Encampment in Defence of Water and Life",
+    "latitude": "15.61624374",
+    "longitude": "-86.01605452",
+    "reference_url": "https://www.facebook.com/810956912625098/photos/pb.100083594761446.-2207520000/828000254254097/?type=3"
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src10"
+    ],
+    "description": "During a dispute between the residents of the camp and Inversiones Los Pinares staff and contracted security personnel, a security official shoots and wounds community member Rigoberto Bonilla Hernández. In response, the director of security is detained by protesters and handed to police. A vehicle and two containers belonging to Inversiones Los Pinares are allegedly set alight during the dispute.",
+    "date": "09/07/2018",
+    "time": "",
+    "location": "Guapinol Encampment in Defence of Water and Life",
+    "latitude": "15.61624374",
+    "longitude": "-86.01605452",
+    "reference_url": "https://legalculturessubsoil.ilcs.sas.ac.uk/wp-content/uploads/2024/02/English-UVA-Report-on-Guapinol_0.pdf"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src11"
+    ],
+    "description": "The prosecutor’s office issued arrest warrants, approved by a National Jurisdiction judge in San Pedro Sula, for the arrest of eighteen community members. The defendants were charged with trespassing (or “unlawful occupation”) and property damage.",
+    "date": "10/01/2018",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src12"
+    ],
+    "description": "[CLICK IMAGE TO PLAY VIDEO] On the basis of a judicial eviction order at least 1,200 police and army personnel, including a specialist militarised police unit known as ‘TIGRE’, are deployed to evict the encampment. Witnesses report live rounds and tear gas being used, and protesters being beaten. The altercation results in the death of two military personnel and one community member, with over a dozen individuals wounded.",
+    "date": "10/27/2018",
+    "time": "",
+    "location": "Guapinol Encampment in Defence of Water and Life",
+    "latitude": "15.61624374",
+    "longitude": "-86.01605452"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src13"
+    ],
+    "description": "Thirteen community members voluntarily appear before a court in La Ceiba, where they learn of a second arrest warrant accusing 31 community members of unjust deprivation of liberty, aggravated arson, theft, and unlawful association in relation to the events that took place 7 September 2018. They are subsequently held in pretrial detention in Tegucigalpa.",
+    "date": "02/21/2019",
+    "time": "",
+    "location": "Edificio Judicial de La Ceiba, La Ceiba",
+    "latitude": "15.76958599",
+    "longitude": "-86.75822442"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src14"
+    ],
+    "description": "Members of the Municipal Committee for the Defense of Common and Public Goods (CMDBCP), the San Alonso Rodríguez Foundation, and the Coalition Against Impunity, file a constitutional challenge against Decree 252-2013.",
+    "date": "02/25/2019",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src15"
+    ],
+    "description": "A National Jurisdiction judge in Tegucigalpa dismisses the charges against the thirteen defenders during the initial hearings. The judge considered that the actions fell within the Honduran Secretary of Human Rights ’definition of a “socio-environmental conflict”, and decided that the protest was legitimate, given it was the only tool available for civil society actors to gain the attention of relevant State officials.",
+    "date": "03/02/2019",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src16"
+    ],
+    "description": "The detainees are released.",
+    "date": "03/06/2019",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src17"
+    ],
+    "description": "Seven additional community members voluntarily appear before a National Jurisdiction judge in Tegucigalpa to address charges from the second arrest warrant. They arrive carrying a casket representing an eighth community member, who is listed in the same charges despite being deceased.",
+    "date": "08/26/2019",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src18"
+    ],
+    "description": "Roberto Antonio Argueta Tejada, one of 32 environmental defenders criminalised as part of the Guapinol case, is shot to death by several heavily armed strangers near the San Isidro hospital in Tocoa.  ",
+    "date": "08/28/2019",
+    "time": "",
+    "location": "Hospital San Isidro, Tocoa",
+    "latitude": "15.66234819",
+    "longitude": "-86.00126849"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src19"
+    ],
+    "description": "In Tegucigalpa, National Jurisdiction Judge Claudio Aguilar grants Arnold Javier Alemán a temporary dismissal on the charges of illegal trespass and damages, leaving the remainder of the charges intact.",
+    "date": "08/30/2019",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src20"
+    ],
+    "description": "National Jurisdiction Judge Lizeth Vallecillo issues a ruling that links the nine environmental defenders to crimes of aggravated arson and unjust deprivation of liberty, while dismissing the crimes of illicit association and theft. They are subsequently placed in pretrial detention in Olanchito.",
+    "date": "09/01/2019",
+    "time": "",
+    "location": "Tocoa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src21"
+    ],
+    "description": "The National Jurisdiction Court of Appeals rejects a habeas corpus petition filed by the defence attorney. In response, prominent international advocacy organizations, including the Due Process of Law Foundation (DPLF), Human Rights Research and Education Centre, and the Collective Corporation of Lawyers “José Alvear Restrepo” filed a joint amicus brief echoing the defense attorneys ’previously expressed concerns and asserting that the community leaders ’detention was in violation of both domestic and international law.",
+    "date": "09/25/2019",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src22"
+    ],
+    "description": "Following another hearing, the decision is made to extend the pretrial detention of the Guapinol activists.",
+    "date": "11/06/2019",
+    "time": "",
+    "location": "Centro Penal, Olanchito",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src23"
+    ],
+    "description": "A series of break-ins are reported at the Tocoa office of the Coordinadora de Organizaciones Populares del Aguán (COPA), a conglomerate of organisations defending human, enviornmental, and social rights in the Aguan Valley Region. Unidentified individuals stole a computer and printer and ransacked drawers filled with documents. COPA member Carlos Leonel George reported the incident to the police. Rather than investigate the break-ins, the police arrest Carlos, who was one of the twelve Guapinol community members who voluntarily went to court in February 2019, only to have all the charges subsequently dismissed.",
+    "date": "12/01/2019",
+    "time": "",
+    "location": "Tocoa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src24"
+    ],
+    "description": "The Center for International Justice and Law (CEJIL) submits an amicus brief to the National Jurisdiction Court of Appeals.",
+    "date": "02/27/2020",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src25"
+    ],
+    "description": "A group of civil society organizations, including the National Committee against Torture and Cruel, Inhumane, and Degrading Treatment (MNP-CONAPREV) and the Committee for Family of the Detained and Disappeared (COFADEH), amongst others, file a second habeas corpus petition with the Supreme Court of Honduras.",
+    "date": "03/24/2020",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src26"
+    ],
+    "description": "In Tegucigalpa, the National Jurisdiction Court of Appeals a dismissal previously issued in favour of human rights defenders Juan Antonio López, Carlos Leonel George, Reinaldo Domínguez, José Adalid Cedillo and Marco Tulio Ramos.",
+    "date": "08/13/2020",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "14.10299397",
+    "longitude": "-87.18792633"
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src27"
+    ],
+    "description": "The Honduran Human Rights Ombudsperson writes a public letter directed at the judicial authorities which describes the detained members of the CMDBCP as human rights activists engaged in legitimate protest activities.",
+    "date": "09/22/2020",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src28"
+    ],
+    "description": "Joaquin Morazan Erazo, named in the 2018 arrest warrant, is shot and killed at his home in Tocoa, Colon.",
+    "date": "10/13/2020",
+    "time": "",
+    "location": "Tocoa",
+    "latitude": "15.65762332",
+    "longitude": "-85.99782398"
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src29"
+    ],
+    "description": "The Office of the United Nations High Commissioner for Human Rights (UN OHCHR) issues a country report raising concerns about the misuse of the judicial system in the Guapinol case.",
+    "date": "02/25/2021",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src30"
+    ],
+    "description": "The UN Working Group on Arbitrary Detention declares the Guapinol Eight - Porfirio Sorto Cedillo, José Abelino Cedillo, Kelvin Alejandro Romero, Arnol Javier Alemán, Ever Alexander Cedillo, Orbin Nahún Hernández, and Daniel Márquez - to be arbitrarily detained and calls for their release.",
+    "date": "03/03/2021",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n2",
+      "c7"
+    ],
+    "sources": [
+      "src52"
+    ],
+    "description": "Members of the CMDBPC present an environmental report to the Secretariat of Natural Resources and Environment containing evidence that mining activity and related road infrastructure in the Carlos Escaleras Mejia National Park has negatively impacted 35 micro-basins of the Guapinol and San Pedro rivers.",
+    "date": "06/27/2021",
+    "time": "",
+    "location": "ASP Mining Concession, Montaña de Botaderos National Park",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src31"
+    ],
+    "description": "The preventive detention of the Guapinol Eight is extended for an six additional months.",
+    "date": "08/26/2021",
+    "time": "",
+    "location": "Centro Penal, Olanchito",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src32"
+    ],
+    "description": "The trial against the Guapinol Eight begins after over two years of pre-trial detention.",
+    "date": "12/01/2021",
+    "time": "",
+    "location": "Juzgado de Letra, Trujillo",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c5"
+    ],
+    "sources": [
+      "src33"
+    ],
+    "description": "Amnesty International writes an open letter expressing concerns about irregularities in the prosecution of the Guapinol Eight and describing those standing trial as 'victims of arbitrary detention and unfounded criminal prosecution stemming solely from their human rights work.' ",
+    "date": "12/11/2021",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src34"
+    ],
+    "description": "A court in Trujillo finds six of the Guapinol Eight guilty of several charges including illegal deprivation of liberty and aggravated damages against a contractor of Inversiones Los Pinares, and aggravated damages against the company itself.",
+    "date": "02/09/2022",
+    "time": "",
+    "location": "Juzgado de Letra, Trujillo",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src35"
+    ],
+    "description": "One day after the sentencing, the Supreme Court declares a mistrial and grants injunctions in favour of the Guapinol Eight.",
+    "date": "02/10/2022",
+    "time": "",
+    "location": "Corte Suprema de Justicia, Tegucigalpa",
+    "latitude": "14.0728134",
+    "longitude": "-87.20092275"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src36"
+    ],
+    "description": "Environmental rights defenders José Daniel Márquez, José Abelino Cedillo, Ewer Cedillo, Kelvin Romero, Orbin Nahún Hernández and Porfirio Soto, are released on bail after 914 days spent in pre-trial detention.",
+    "date": "02/25/2022",
+    "time": "",
+    "location": "Centro Penal, Olanchito",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src37"
+    ],
+    "description": "Aly Magdaleno Domínguez Ramos and Jairo Bonilla Ayala, two residents criminalised for their opposition to the mining project, are murdered in Guapinol.",
+    "date": "01/07/2023",
+    "time": "",
+    "location": "Guapinol",
+    "latitude": "15.61551388",
+    "longitude": "-86.03803251"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src38"
+    ],
+    "description": "Six activists discover they may still face criminal prosecution as a result of an appeal by the Prosecutor's office.",
+    "date": "02/07/2023",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src39"
+    ],
+    "description": "Guapinol community members report drones surveilling their homes. ",
+    "date": "02/21/2023",
+    "time": "",
+    "location": "Guapinol",
+    "latitude": "15.61551388",
+    "longitude": "-86.03803251"
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src40"
+    ],
+    "description": "Oquelí Domínguez, brother of Aly and Reynaldo Domínguez, is murdered in his home in Guapinol.",
+    "date": "06/15/2023",
+    "time": "",
+    "location": "Guapinol",
+    "latitude": "15.61551388",
+    "longitude": "-86.03803251"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src41"
+    ],
+    "description": "A Public Assembly, scheduled to discuss the future of the Los Pinares-ECOTEK megaproject, is attended by more than 2,500 community members. The meeting is prematurely suspended by Mayor Adán Fúnez.",
+    "date": "12/09/2023",
+    "time": "",
+    "location": "Instituto Froylan Turcios, Tocoa",
+    "latitude": "15.65779762",
+    "longitude": "-85.99589644"
+  },
+  {
+    "associations": [
+      "n5",
+      "c6"
+    ],
+    "sources": [
+      "src42"
+    ],
+    "description": "The original permits for the ASP and ASP2 mining concessions expire.",
+    "date": "01/28/2024",
+    "time": "",
+    "location": "ASP Mining Concession, Montaña de Botaderos National Park",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src43"
+    ],
+    "description": "A second Public Assembly is called by Mayor Adán Fúnez. The assembly is suspended following a legal appeal filed by the CMDBPC on the grounds that it was organised without the required support of municipal institutions.",
+    "date": "01/31/2024",
+    "time": "",
+    "location": "Alcaldia, Tocoa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n5",
+      "c6"
+    ],
+    "sources": [
+      "src44"
+    ],
+    "description": "Plans for a petroleum coke thermoelectric plant are approved at a meeting convened by the Tocoa Mayor’s Office. The plant will form part of the Los Pinares-ECOTEK megaproject, in addition to the two mining concessions and an iron oxide processing plant. The legitimacy of the meeting and its outcome are disputed by the CMDBCP, who argue that the Mayor did not follow legal requirements to engage with relevant stakeholders during the decision-maming process.",
+    "date": "06/13/2024",
+    "time": "",
+    "location": "Alcaldia, Tocoa",
+    "latitude": "15.6557397",
+    "longitude": "-86.00974201"
+  },
+  {
+    "associations": [
+      "n5",
+      "c1"
+    ],
+    "sources": [
+      "src45"
+    ],
+    "description": "The Honduran government adopts Executive Decree 18-2024, restoring the original layout of Carlos Escaleras National Park and guaranteeing the protection of the area from future mining activity.",
+    "date": "08/14/2024",
+    "time": "",
+    "location": "Ministerio Público, Tegucigalpa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [
+      "n3",
+      "c3"
+    ],
+    "sources": [
+      "src46"
+    ],
+    "description": "Juan López, Coordinator of the CMDBPC, is shot dead by a group of armed individuals outside of his workplace, the San Isidro Labrador parish in Tocoa, Colon.",
+    "date": "09/14/2024",
+    "time": "",
+    "location": "San Isidro Labrador, Tocoa",
+    "latitude": "15.6556935",
+    "longitude": "-86.00532542"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src47"
+    ],
+    "description": "The Second Court of Appeals of La Ceiba reopens criminal proceedings against CMDBPC members Carlos Leonel George, Reynaldo Domínguez, José Adaly Cedillo, Marco Tulio Ramos, and the late Juan López.",
+    "date": "09/19/2024",
+    "time": "",
+    "location": "Edificio Judicial de La Ceiba, La Ceiba",
+    "latitude": "15.76958599",
+    "longitude": "-86.75822442"
+  },
+  {
+    "associations": [
+      "n4",
+      "c4"
+    ],
+    "sources": [
+      "src48"
+    ],
+    "description": "Zoe Doralina Guifarro, a judge in Tocoa, Colon, finally grants a definitive letter of freedom to Carlos Leonel George George, Reynaldo Domínguez Ramos, José Adaly Cedillo Mendoza, Marco Tulio Ramos, and the late Juan Antonio López.",
+    "date": "10/29/2024",
+    "time": "",
+    "location": "Palacio de Justicia de Tocoa, Tocoa",
+    "latitude": "15.66443994",
+    "longitude": "-85.98599913"
+  },
+  {
+    "associations": [
+      "n2",
+      "c2"
+    ],
+    "sources": [
+      "src49"
+    ],
+    "description": "Residents organise a public press conference calling for the final expulsion of Los Pinares-ECOTEK from the Carlos Escaleras National Park, and the imprisonment of those responsible for the murder of Juan López.",
+    "date": "02/26/2025",
+    "time": "",
+    "location": "Ministerio Público, Tegucigalpa",
+    "latitude": "14.09638434",
+    "longitude": "-87.18326854"
+  },
+  {
+    "associations": [
+      "n6",
+      "c4"
+    ],
+    "sources": [
+      "src50"
+    ],
+    "description": "Three Los Pinares-ECOTEK executives - Victor Lorenzo Bernardez, legal representative; Fernando Padilla, superintendent of the environment; and Douglas Alvarenga, superintendent of mines- are summoned before the National Jurisdiction Court accused of illegally exploitating natural resources without a permit and causing aggravated damages in the Carlos Escaleras National Park.",
+    "date": "02/28/2025",
+    "time": "",
+    "location": "Juzgado de Jurisdicción Nacional, Tegucigalpa",
+    "latitude": "",
+    "longitude": ""
+  },
+  {
+    "associations": [],
+    "sources": [],
+    "description": "",
+    "date": "",
+    "time": "",
+    "location": "",
+    "latitude": "",
+    "longitude": ""
+  }
+]
