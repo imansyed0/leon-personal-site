@@ -20,6 +20,7 @@ import {
   mapCategoriesToPaths,
   getCategoryIdxs,
   getFilterIdx,
+  insetSourceFrom,
 } from "../common/utilities.js";
 import { ToolbarButton } from "./controls/atoms/ToolbarButton";
 import { FullscreenToggle } from "./controls/FullScreenToggle";
@@ -87,6 +88,28 @@ class Toolbar extends React.Component {
   goToNarrative(narrative) {
     this.selectTab(-1); // set all unselected within this component
     this.props.methods.onSelectNarrative(narrative);
+  }
+
+  goToOverview() {
+    const { events, sources } = this.props;
+    
+    if (!events || events.length === 0) {
+      alert("No events available for overview");
+      return;
+    }
+
+    // Create a synthetic narrative with all events
+    const overviewNarrative = {
+      id: "overview-all-events",
+      label: "Overview - All Events",
+      description: "A chronological view of all events in the dataset",
+      steps: events
+        .map(insetSourceFrom(sources))  // Use the existing utility function
+        .sort((a, b) => a.datetime - b.datetime) // Sort by datetime
+    };
+
+    this.selectTab(-1); // close the panel
+    this.props.methods.onSelectNarrative(overviewNarrative);
   }
 
   renderToolbarNarrativePanel() {
@@ -210,6 +233,92 @@ class Toolbar extends React.Component {
     );
   }
 
+  renderToolbarTabs() {
+    const { features, narratives, toolbarCopy } = this.props;
+    const narrativesExist = narratives && narratives.length !== 0;
+    let title = copy[this.props.language].toolbar.title;
+    if (process.env.display_title) title = process.env.display_title;
+    const { panels } = toolbarCopy;
+
+    const narrativesIdx = 0;
+    const categoryIdxs = getCategoryIdxs(
+      Object.keys(panels.categories),
+      narrativesExist ? 1 : 0
+    );
+    const numCategoryPanels = Object.keys(categoryIdxs).length;
+    const filtersIdx = getFilterIdx(
+      narrativesExist,
+      features.USE_CATEGORIES,
+      numCategoryPanels || 0
+    );
+    const shapesIdx = filtersIdx + 1;
+
+    return (
+      <div className="toolbar">
+        <div className="toolbar-header" onClick={this.props.methods.onTitle}>
+          <p>{title}</p>
+        </div>
+        <div className="toolbar-tabs">
+          <TabList>
+            <ToolbarButton
+              key="overview"
+              label="Overview"
+              iconKey="globe"
+              isActive={false}
+              onClick={() => {
+                this.goToOverview();
+              }}
+            />
+            {narrativesExist
+              ? this.renderToolbarTab(
+                  narrativesIdx,
+                  panels.narratives.label,
+                  panels.narratives.icon,
+                  "narratives"
+                )
+              : null}
+            {features.USE_CATEGORIES
+              ? this.renderToolbarCategoryTabs(categoryIdxs)
+              : null}
+            {features.USE_ASSOCIATIONS && features.USE_FILTERS
+              ? this.renderToolbarTab(
+                  filtersIdx,
+                  panels.filters.label,
+                  panels.filters.icon,
+                  "filters"
+                )
+              : null}
+            {features.USE_SHAPES
+              ? this.renderToolbarTab(
+                  shapesIdx,
+                  panels.shapes.label,
+                  panels.shapes.icon,
+                  "shapes"
+                )
+              : null}
+            {features.USE_FULLSCREEN && (
+              <FullscreenToggle language={this.props.language} />
+            )}
+          </TabList>
+        </div>
+        <BottomActions
+          info={{
+            enabled: this.props.infoShowing,
+            toggle: this.props.actions.toggleInfoPopup,
+          }}
+          sites={{
+            enabled: this.props.sitesShowing,
+            toggle: this.props.actions.toggleSites,
+          }}
+          cover={{
+            toggle: this.props.actions.toggleCover,
+          }}
+          features={this.props.features}
+        />
+      </div>
+    );
+  }
+
   renderToolbarPanels() {
     const { features, narratives } = this.props;
     const classes =
@@ -249,80 +358,6 @@ class Toolbar extends React.Component {
     return null;
   }
 
-  renderToolbarTabs() {
-    const { features, narratives, toolbarCopy } = this.props;
-    const narrativesExist = narratives && narratives.length !== 0;
-    let title = copy[this.props.language].toolbar.title;
-    if (process.env.display_title) title = process.env.display_title;
-    const { panels } = toolbarCopy;
-
-    const narrativesIdx = 0;
-    const categoryIdxs = getCategoryIdxs(
-      Object.keys(panels.categories),
-      narrativesExist ? 1 : 0
-    );
-    const numCategoryPanels = Object.keys(categoryIdxs).length;
-    const filtersIdx = getFilterIdx(
-      narrativesExist,
-      features.USE_CATEGORIES,
-      numCategoryPanels || 0
-    );
-    const shapesIdx = filtersIdx + 1;
-
-    return (
-      <div className="toolbar">
-        <div className="toolbar-header" onClick={this.props.methods.onTitle}>
-          <p>{title}</p>
-        </div>
-        <div className="toolbar-tabs">
-          <TabList>
-            {narrativesExist
-              ? this.renderToolbarTab(
-                  narrativesIdx,
-                  panels.narratives.label,
-                  panels.narratives.icon
-                )
-              : null}
-            {features.USE_CATEGORIES
-              ? this.renderToolbarCategoryTabs(categoryIdxs)
-              : null}
-            {features.USE_ASSOCIATIONS && features.USE_FILTERS
-              ? this.renderToolbarTab(
-                  filtersIdx,
-                  panels.filters.label,
-                  panels.filters.icon
-                )
-              : null}
-            {features.USE_SHAPES
-              ? this.renderToolbarTab(
-                  shapesIdx,
-                  panels.shapes.label,
-                  panels.shapes.icon
-                )
-              : null}
-            {features.USE_FULLSCREEN && (
-              <FullscreenToggle language={this.props.language} />
-            )}
-          </TabList>
-        </div>
-        <BottomActions
-          info={{
-            enabled: this.props.infoShowing,
-            toggle: this.props.actions.toggleInfoPopup,
-          }}
-          sites={{
-            enabled: this.props.sitesShowing,
-            toggle: this.props.actions.toggleSites,
-          }}
-          cover={{
-            toggle: this.props.actions.toggleCover,
-          }}
-          features={this.props.features}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { isNarrative } = this.props;
 
@@ -346,6 +381,8 @@ function mapStateToProps(state) {
     categories: selectors.getCategories(state),
     narratives: selectors.selectNarratives(state),
     shapes: selectors.getShapes(state),
+    events: selectors.getEvents(state),
+    sources: selectors.getSources(state),
     language: state.app.language,
     toolbarCopy: state.app.toolbar,
     activeFilters: selectors.getActiveFilters(state),

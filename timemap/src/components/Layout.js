@@ -25,6 +25,8 @@ import NarrativeControls from "./controls/NarrativeControls.js";
 
 import colors from "../common/global";
 import { binarySearch, insetSourceFrom } from "../common/utilities";
+import hash from "object-hash";
+import { CSSTransition } from "react-transition-group";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -50,11 +52,44 @@ class Dashboard extends React.Component {
         const { actions, features } = this.props;
         actions.updateDomain({ domain, features });
         actions.rehydrateState();
+        
+        // Auto-trigger Overview if no existing narrative or selection state
+        setTimeout(() => {
+          // Check current state from props after rehydration
+          if (!this.props.app.associations.narrative && 
+              this.props.app.selected.length === 0 &&
+              this.props.domain.events && this.props.domain.events.length > 0) {
+            // Keep loading active during Overview setup
+            this.props.actions.setLoading();
+            this.triggerAutoOverview();
+          }
+        }, 100); // Reduced delay since we're managing loading ourselves
       });
     }
     // NOTE: hack to get the timeline to always show. Not entirely sure why
     // this is necessary.
     window.dispatchEvent(new Event("resize"));
+  }
+
+  triggerAutoOverview() {
+    const { events, sources } = this.props.domain;
+    
+    // Create the same overview narrative as in Toolbar.js
+    const overviewNarrative = {
+      id: "overview-all-events",
+      label: "Overview - All Events", 
+      description: "A chronological view of all events in the dataset",
+      steps: events
+        .map(insetSourceFrom(sources))
+        .sort((a, b) => a.datetime - b.datetime)
+    };
+    
+    this.setNarrative(overviewNarrative);
+    
+    // Small delay to ensure narrative is fully rendered before hiding loading
+    setTimeout(() => {
+      this.props.actions.setNotLoading();
+    }, 300);
   }
 
   handleHighlight(highlighted) {
