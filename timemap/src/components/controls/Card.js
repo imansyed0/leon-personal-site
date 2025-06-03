@@ -31,6 +31,7 @@ export const generateCardLayout = {
           title: "Summary",
           value: event.description || ``,
           scaleFont: 1.1,
+          reference_url: event.reference_url,
         },
       ],
     ];
@@ -55,6 +56,7 @@ export const generateCardLayout = {
           title: "Summary",
           value: event.description || ``,
           scaleFont: 1.1,
+          reference_url: event.reference_url,
         },
       ],
       ...event.sources.flatMap((source) =>
@@ -163,7 +165,31 @@ export const Card = ({
           </div>
         );
       case "text":
-        return !isEmptyString(field.value) && <CardText {...field} />;
+        return !isEmptyString(field.value) && (
+          <div className="card-cell">
+            {field.title && <h4>{field.title}</h4>}
+            <div style={{ fontSize: field.scaleFont ? `${field.scaleFont}em` : '1em' }}>
+              {field.value}
+              {field.reference_url && (
+                <>
+                  {" "}
+                  <a 
+                    href={field.reference_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: 'inherit', 
+                      textDecoration: 'underline',
+                      fontSize: 'inherit'
+                    }}
+                  >
+                    (Source)
+                  </a>
+                </>
+              )}
+            </div>
+          </div>
+        );
       case "date":
         return renderTime(field);
       case "links":

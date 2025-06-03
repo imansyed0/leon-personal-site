@@ -38,6 +38,7 @@ function createEventSchema(custom) {
       sources: Joi.array(),
       comments: Joi.string().allow(""),
       time_display: Joi.string().allow(""),
+      reference_url: Joi.string().allow(""),
       // nested
       narrative___stepStyles: Joi.array(),
       shape: Joi.string().allow(""),

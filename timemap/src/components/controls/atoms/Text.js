@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CardText = ({ title, value, hoverValue = null }) => {
+const CardText = ({ title, value, hoverValue = null, reference_url = null }) => {
   const [showHover, setShowHover] = useState(false);
 
   return (
@@ -34,6 +34,24 @@ const CardText = ({ title, value, hoverValue = null }) => {
               }}
             >
               {value}
+              {reference_url && (
+                <>
+                  {" "}
+                  <a 
+                    href={reference_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: 'inherit',
+                      textDecoration: 'underline',
+                      pointerEvents: 'auto'
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    (Source)
+                  </a>
+                </>
+              )}
             </div>
           )}
         </div>
