@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Popup from "./atoms/Popup";
 import copy from "../common/data/copy.json";
 import { getGoogleDriveVideoUrl } from "../common/utilities/video";
 
 const IntroPopup = ({ isOpen, onClose, language, styles }) => {
+  const iframeRef = useRef(null);
   const googleDriveUrl = copy[language]?.legend?.intro?.video || "";
   const videoUrl = getGoogleDriveVideoUrl(googleDriveUrl);
+
+  // Stop video when popup closes
+  useEffect(() => {
+    if (!isOpen && iframeRef.current) {
+      // Reset iframe src to stop the video
+      iframeRef.current.src = "about:blank";
+    }
+  }, [isOpen]);
+
+  // Enhanced onClose to ensure video stops
+  const handleClose = () => {
+    if (iframeRef.current) {
+      iframeRef.current.src = "about:blank";
+    }
+    onClose();
+  };
 
   return (
     <Popup
       title={copy[language].legend.intro.header}
       content={copy[language].legend.intro.intro}
-      onClose={onClose}
+      onClose={handleClose}
       isOpen={isOpen}
       styles={{
         position: 'fixed',
@@ -27,7 +44,7 @@ const IntroPopup = ({ isOpen, onClose, language, styles }) => {
         overflowY: 'auto'
       }}
     >
-      {videoUrl && (
+      {videoUrl && isOpen && (
         <div style={{ 
           marginTop: '20px',
           width: '100%',
@@ -45,6 +62,7 @@ const IntroPopup = ({ isOpen, onClose, language, styles }) => {
             borderRadius: '8px'
           }}>
             <iframe
+              ref={iframeRef}
               src={videoUrl}
               style={{
                 position: 'absolute',
