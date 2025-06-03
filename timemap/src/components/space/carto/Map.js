@@ -11,8 +11,6 @@ import * as actions from "../../../actions";
 
 import Sites from "./atoms/Sites";
 import Regions from "./atoms/Regions";
-import Events from "./atoms/Events";
-import SelectedEvents from "./atoms/SelectedEvents";
 import Narratives from "./atoms/Narratives";
 import DefsMarkers from "./atoms/DefsMarkers";
 import SatelliteOverlayToggle from "./atoms/SatelliteOverlayToggle";
@@ -20,8 +18,6 @@ import LoadingOverlay from "../../atoms/Loading";
 
 import {
   isIdentical,
-  isLatitude,
-  isLongitude,
 } from "../../../common/utilities";
 
 // NB: important constants for map, TODO: make statics
