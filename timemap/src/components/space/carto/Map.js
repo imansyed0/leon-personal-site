@@ -1,10 +1,9 @@
 /* global L */
-import { bindActionCreators } from "redux";
-import "leaflet";
 import React from "react";
 import { flushSync } from "react-dom";
 import { Portal } from "react-portal";
-import Supercluster from "supercluster";
+import { bindActionCreators } from "redux";
+import "leaflet";
 
 import { connect } from "react-redux";
 import * as selectors from "../../../selectors";
@@ -13,7 +12,6 @@ import * as actions from "../../../actions";
 import Sites from "./atoms/Sites";
 import Regions from "./atoms/Regions";
 import Events from "./atoms/Events";
-import Clusters from "./atoms/Clusters";
 import SelectedEvents from "./atoms/SelectedEvents";
 import Narratives from "./atoms/Narratives";
 import DefsMarkers from "./atoms/DefsMarkers";
@@ -21,12 +19,9 @@ import SatelliteOverlayToggle from "./atoms/SatelliteOverlayToggle";
 import LoadingOverlay from "../../atoms/Loading";
 
 import {
-  mapClustersToLocations,
   isIdentical,
   isLatitude,
   isLongitude,
-  calculateTotalClusterPoints,
-  calcClusterSize,
 } from "../../../common/utilities";
 
 // NB: important constants for map, TODO: make statics
@@ -38,18 +33,13 @@ class Map extends React.Component {
   constructor() {
     super();
     this.projectPoint = this.projectPoint.bind(this);
-    this.onClusterSelect = this.onClusterSelect.bind(this);
-    this.loadClusterData = this.loadClusterData.bind(this);
-    this.getClusterChildren = this.getClusterChildren.bind(this);
     this.svgRef = React.createRef();
     this.map = null;
-    this.superclusterIndex = null;
     this.tileLayer = null;
     this.state = {
       mapTransformX: 0,
       mapTransformY: 0,
-      indexLoaded: false,
-      clusters: [],
+      currentZoom: 0
     };
     this.styleLocation = this.styleLocation.bind(this);
   }
@@ -69,29 +59,28 @@ class Map extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!isIdentical(nextProps.domain.locations, this.props.domain.locations)) {
-      this.loadClusterData(nextProps.domain.locations);
-    }
-
     // Set appropriate zoom for narrative
     const { bounds } = nextProps.app.map;
     if (!isIdentical(bounds, this.props.app.map.bounds) && bounds !== null) {
       this.map.fitBounds(bounds);
     } else {
       if (!isIdentical(nextProps.app.selected, this.props.app.selected)) {
-        // Fly to first  of events selected
+        console.log('Selected events changed:', nextProps.app.selected);
+        // Fly to first of events selected
         const eventPoint =
           nextProps.app.selected.length > 0 ? nextProps.app.selected[0] : null;
+
+        console.log('Event point to zoom to:', eventPoint);
 
         if (
           eventPoint !== null &&
           eventPoint.latitude &&
           eventPoint.longitude
         ) {
-          // this.map.setView([eventPoint.latitude, eventPoint.longitude])
+          console.log('Zooming to:', eventPoint.latitude, eventPoint.longitude);
           this.map.setView(
             [eventPoint.latitude, eventPoint.longitude],
-            this.map.getZoom(),
+            Math.max(this.map.getZoom(), 16), // Ensure minimum zoom level of 16 for significant zoom
             {
               animate: true,
               pan: {
@@ -105,80 +94,37 @@ class Map extends React.Component {
   }
 
   getTileUrl(tiles) {
-    console.log('Map tiles requested:', tiles);
-    console.log('MAPBOX_TOKEN available:', !!process.env.MAPBOX_TOKEN);
-    
     if (
       tiles === "openstreetmap" ||
       !process.env.MAPBOX_TOKEN ||
       process.env.MAPBOX_TOKEN === defaultToken
     ) {
-      console.log('Using OpenStreetMap tiles');
-      // Try a different OpenStreetMap tile provider that may have better CORS support
       return "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
     }
 
     if (supportedMapboxMap.indexOf(this.props.ui.tiles) !== -1) {
-      console.log('Using Mapbox style:', this.props.ui.tiles);
       return `https://api.mapbox.com/styles/v1/mapbox/${this.props.ui.tiles}/tiles/{z}/{x}/{y}?access_token=${process.env.MAPBOX_TOKEN}`;
     }
 
-    console.log('Using default Mapbox style');
     return `https://api.mapbox.com/styles/v1/mapbox/${supportedMapboxMap[0]}/tiles/{z}/{x}/{y}?access_token=${process.env.MAPBOX_TOKEN}`;
   }
 
-  /**
-   * Initialize the base tile layer based on the ui state
-   */
   initializeTileLayer() {
     if (!this.map) {
       return;
     }
 
     const url = this.getTileUrl(this.props.ui.tiles);
-    /**
-     * If a tile layer already exists, we update its url. Otherwise, we create it and add it to the map.
-     */
     if (this.tileLayer) {
       this.tileLayer.setUrl(url);
     } else {
       this.tileLayer = L.tileLayer(url);
-      
-      // Add error handling for tile loading issues
-      this.tileLayer.on('tileerror', (error) => {
-        console.error('Tile loading error:', error);
-        
-        // If we're already using the primary OpenStreetMap URL, try alternative providers
-        if (url === "https://tile.openstreetmap.org/{z}/{x}/{y}.png") {
-          console.log('Trying alternative OSM tile provider');
-          
-          // Remove the failed tile layer
-          if (this.map && this.tileLayer) {
-            this.map.removeLayer(this.tileLayer);
-          }
-          
-          // Try alternative providers in sequence
-          const alternativeUrls = [
-            "https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-            "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png",
-            "https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-          ];
-          
-          // Create new tile layer with the first alternative
-          this.tileLayer = L.tileLayer(alternativeUrls[0]);
-          this.tileLayer.addTo(this.map);
-        }
-      });
-      
       this.tileLayer.addTo(this.map);
     }
   }
 
   initializeMap() {
-    /**
-     * Creates a Leaflet map
-     */
-    const { map: mapConfig, cluster: clusterConfig } = this.props.app;
+    const { map: mapConfig } = this.props.app;
 
     const map = L.map(this.props.ui.dom.map)
       .setView(mapConfig.anchor, mapConfig.startZoom)
@@ -186,14 +132,10 @@ class Map extends React.Component {
       .setMaxZoom(mapConfig.maxZoom)
       .setMaxBounds(mapConfig.maxBounds);
 
-    // Initialize supercluster index
-    this.superclusterIndex = new Supercluster(clusterConfig);
-
     map.keyboard.disable();
     map.zoomControl.remove();
 
     map.on("moveend", () => {
-      this.updateClusters();
       this.alignLayers();
     });
 
@@ -203,126 +145,36 @@ class Map extends React.Component {
       this.map.scrollWheelZoom.enable();
       flushSync(() => {
         this.alignLayers();
-        this.updateClusters();
+        this.setState({ currentZoom: this.map.getZoom() });
       });
     });
+    
     map.on("zoomstart", () => {
       if (this.svgRef.current !== null)
         this.svgRef.current.classList.add("hide");
     });
+    
     map.on("zoomend", () => {
       if (this.svgRef.current !== null)
         this.svgRef.current.classList.remove("hide");
     });
+    
     window.addEventListener("resize", () => {
       this.alignLayers();
     });
 
     this.map = map;
-  }
-
-  getMapDetails() {
-    const bounds = this.map.getBounds();
-    const bbox = [
-      bounds.getWest(),
-      bounds.getSouth(),
-      bounds.getEast(),
-      bounds.getNorth(),
-    ];
-    const zoom = this.map.getZoom();
-    return [bbox, zoom];
-  }
-
-  updateClusters() {
-    const [bbox, zoom] = this.getMapDetails();
-    if (this.superclusterIndex && this.state.indexLoaded) {
-      this.setState({
-        clusters: this.superclusterIndex.getClusters(bbox, zoom),
-      });
-    }
-  }
-
-  loadClusterData(locations) {
-    if (locations && locations.length > 0 && this.superclusterIndex) {
-      const convertedLocations = locations.reduce((acc, loc) => {
-        const { longitude, latitude } = loc;
-        const validCoordinates = isLatitude(latitude) && isLongitude(longitude);
-        if (validCoordinates) {
-          const feature = {
-            type: "Feature",
-            properties: {
-              cluster: false,
-              id: loc.label,
-            },
-            geometry: {
-              type: "Point",
-              coordinates: [longitude, latitude],
-            },
-          };
-          acc.push(feature);
-        }
-        return acc;
-      }, []);
-      this.superclusterIndex.load(convertedLocations);
-      this.setState({ indexLoaded: true }, () => {
-        this.updateClusters();
-      });
-    } else {
-      this.setState({ clusters: [] });
-    }
-  }
-
-  getClusterChildren(clusterId) {
-    if (this.superclusterIndex) {
-      try {
-        const children = this.superclusterIndex.getLeaves(
-          clusterId,
-          Infinity,
-          0
-        );
-        return mapClustersToLocations(children, this.props.domain.locations);
-      } catch (err) {
-        return [];
-      }
-    }
-    return [];
-  }
-
-  getSelectedClusters() {
-    const { selected } = this.props.app;
-    const selectedIds = selected.map((sl) => sl.id);
-
-    if (this.state.clusters && this.state.clusters.length > 0) {
-      return this.state.clusters.reduce((acc, cl) => {
-        if (cl.properties.cluster) {
-          const children = this.getClusterChildren(cl.properties.cluster_id);
-          if (children && children.length > 0) {
-            children.forEach((child) => {
-              const clusterPresent =
-                acc.findIndex((item) => item.id === cl.id) >= 0;
-              if (selectedIds.includes(child.id) && !clusterPresent) {
-                acc.push(cl);
-              }
-            });
-          }
-        }
-        return acc;
-      }, []);
-    }
-    return [];
+    this.setState({ currentZoom: map.getZoom() });
   }
 
   alignLayers() {
     const mapNode = document.querySelector(".leaflet-map-pane");
     if (mapNode === null) return { transformX: 0, transformY: 0 };
 
-    // We'll get the transform of the leaflet container,
-    // which will let us offset the SVG by the same quantity
     const transform = window
       .getComputedStyle(mapNode)
       .getPropertyValue("transform");
 
-    // Offset with leaflet map transform boundaries
     this.setState({
       mapTransformX: +transform.split(",")[4],
       mapTransformY: +transform.split(",")[5].split(")")[0],
@@ -335,19 +187,6 @@ class Map extends React.Component {
       x: this.map.latLngToLayerPoint(latLng).x + this.state.mapTransformX,
       y: this.map.latLngToLayerPoint(latLng).y + this.state.mapTransformY,
     };
-  }
-
-  onClusterSelect({ id, latitude, longitude }) {
-    const expansionZoom = Math.max(
-      this.superclusterIndex.getClusterExpansionZoom(parseInt(id)),
-      this.superclusterIndex.options.minZoom
-    );
-    const zoomLevelsToSkip = 2;
-    const zoomToFly = Math.max(
-      expansionZoom + zoomLevelsToSkip,
-      this.props.app.cluster.maxZoom
-    );
-    this.map.flyTo(new L.LatLng(latitude, longitude), zoomToFly);
   }
 
   getClientDims() {
@@ -372,8 +211,7 @@ class Map extends React.Component {
           width={width}
           height={height}
           style={{
-            transform: `translate3d(${-this.state.mapTransformX}px, ${-this
-              .state.mapTransformY}px, 0)`,
+            transform: `translate3d(${-this.state.mapTransformX}px, ${-this.state.mapTransformY}px, 0)`,
           }}
           className="leaflet-svg"
         />
@@ -421,116 +259,185 @@ class Map extends React.Component {
     );
   }
 
-  /**
-   * Determines additional styles on the <circle> for each location.
-   * A location consists of an array of events (see selectors). The function
-   * also has full access to the domain and redux state to derive values if
-   * necessary. The function should return an array, where the value at the
-   * first index is a styles object for the SVG at the location, and the value
-   * at the second index is an optional additional component that renders in
-   * the <g/> div.
-   */
   styleLocation(location) {
     return [null, null];
   }
 
-  styleCluster(cluster) {
-    return [null, null];
+  renderCategoryIcon(event, x, y, useClusterMode = false) {
+    const zoomLevel = this.state.currentZoom;
+    
+    // Show clusters (red circles) below zoom level 8, individual icons above
+    if (useClusterMode || zoomLevel < 13) {
+      return (
+        <g key={`cluster-${event.id}`}>
+          <circle 
+            cx={x} 
+            cy={y} 
+            r="12" 
+            fill="#dc3545"
+            stroke="none"
+            opacity="0.8"
+            className="cluster-marker"
+          />
+        </g>
+      );
+    }
+    
+    // Find the first category association (has mode: "CATEGORY" and id starts with 'c')
+    const categoryAssoc = event.associations ? event.associations.find(a => 
+      a.mode === "CATEGORY" && a.id.startsWith('c')
+    ) : null;
+    
+    if (!categoryAssoc) return null;
+
+    const imagePath = `/images/${categoryAssoc.id}.svg`;
+
+    // Calculate icon size based on zoom level
+    const baseSize = 40;
+    
+    // Scale factor: starts at 0.8 at low zoom, reaches 1.2 at high zoom
+    // Clamp between reasonable limits to keep it looking good
+    const minScale = 0.7;
+    const maxScale = 1.4;
+    const zoomScale = Math.min(maxScale, Math.max(minScale, 0.6 + (zoomLevel * 0.08)));
+    
+    const iconSize = Math.round(baseSize * zoomScale);
+    const offset = iconSize / 2;
+
+    return (
+      <g key={`event-${event.id}`}>
+        {/* SVG Icon */}
+        <image
+          href={imagePath}
+          x={x - offset}
+          y={y - offset}
+          width={iconSize}
+          height={iconSize}
+          className="event-icon"
+        />
+        {/* Fallback circle if SVG doesn't load */}
+        <circle 
+          cx={x} 
+          cy={y} 
+          r={offset * 0.6} 
+          fill="#666"
+          stroke="#fff"
+          strokeWidth="2"
+          opacity="0.8"
+          style={{ display: 'none' }}
+          className="event-fallback"
+        />
+      </g>
+    );
+  }
+
+  handleEventClick = (e, event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('=== EVENT CLICKED ===');
+    console.log('Event clicked:', event);
+    console.log('Event ID:', event.id);
+    console.log('Methods prop:', this.props.methods);
+    console.log('Actions prop:', this.props.actions);
+    
+    // Try using methods first, fallback to actions
+    if (this.props.methods && this.props.methods.onSelect) {
+      console.log('Using methods.onSelect');
+      this.props.methods.onSelect([event]);
+    } else if (this.props.actions && this.props.actions.updateSelected) {
+      console.log('Using actions.updateSelected as fallback');
+      this.props.actions.updateSelected([event]);
+    } else {
+      console.error('No selection method available');
+    }
   }
 
   renderEvents() {
-    /*
-    Uncomment below to filter out the locations already present in a cluster.
-    Leaving these lines commented out renders all the locations on the map, regardless of whether or not they are clustered
-    */
+    if (!this.props.domain.events || !this.svgRef.current) {
+      return null;
+    }
 
-    const individualClusters = this.state.clusters.filter(
-      (cl) => !cl.properties.cluster
-    );
-    const filteredLocations = mapClustersToLocations(
-      individualClusters,
-      this.props.domain.locations
+    const events = this.props.domain.events.filter(
+      event => event.latitude && event.longitude
     );
 
-    return (
-      <Events
-        svg={this.svgRef.current}
-        events={this.props.domain.events}
-        locations={filteredLocations}
-        // locations={this.props.domain.locations}
-        styleLocation={this.styleLocation}
-        categories={this.props.domain.categories}
-        projectPoint={this.projectPoint}
-        selected={this.props.app.selected}
-        narrative={this.props.app.narrative}
-        onSelect={this.props.methods.onSelect}
-        getCategoryColor={this.props.methods.getCategoryColor}
-        eventRadius={this.props.ui.eventRadius}
-        coloringSet={this.props.app.coloringSet}
-        filterColors={this.props.ui.filterColors}
-        features={this.props.features}
-      />
-    );
-  }
+    const zoomLevel = this.state.currentZoom;
+    console.log('Current zoom level:', zoomLevel);
 
-  renderClusters() {
-    const allClusters = this.state.clusters.filter(
-      (cl) => cl.properties.cluster
-    );
-    return (
-      <Clusters
-        svg={this.svgRef.current}
-        styleCluster={this.styleCluster}
-        projectPoint={this.projectPoint}
-        clusters={allClusters}
-        isRadial={this.props.ui.radial}
-        onSelect={this.onClusterSelect}
-        coloringSet={this.props.app.coloringSet}
-        getClusterChildren={this.getClusterChildren}
-        filterColors={this.props.ui.filterColors}
-      />
-    );
-  }
-
-  renderSelected() {
-    const selectedClusters = this.getSelectedClusters();
-    const totalMarkers = [];
-
-    this.props.app.selected.forEach((s) => {
-      const { latitude, longitude, id } = s;
-      totalMarkers.push({
-        id,
-        latitude,
-        longitude,
-        radius: this.props.ui.eventRadius,
+    // Group events by location at low zoom levels for clustering
+    const eventGroups = {};
+    if (zoomLevel < 8) {
+      events.forEach(event => {
+        // Round coordinates to group nearby events
+        const lat = Math.round(event.latitude * 1000) / 1000;
+        const lng = Math.round(event.longitude * 1000) / 1000;
+        const key = `${lat},${lng}`;
+        
+        if (!eventGroups[key]) {
+          eventGroups[key] = [];
+        }
+        eventGroups[key].push(event);
       });
-    });
+    }
 
-    const totalClusterPoints = calculateTotalClusterPoints(this.state.clusters);
+    const renderedEvents = events.map(event => {
+      const { x, y } = this.projectPoint([event.latitude, event.longitude]);
+      
+      const isSelected = this.props.app.selected.some(
+        selected => selected.id === event.id
+      );
 
-    selectedClusters.forEach((cl) => {
-      if (cl.properties.cluster) {
-        const { coordinates } = cl.geometry;
-
-        totalMarkers.push({
-          id: cl.id,
-          latitude: String(coordinates[1]),
-          longitude: String(coordinates[0]),
-          radius: calcClusterSize(
-            cl.properties.point_count,
-            totalClusterPoints
-          ),
-        });
+      // Determine if this event should use cluster mode
+      let useClusterMode = false;
+      if (zoomLevel < 8) {
+        const lat = Math.round(event.latitude * 1000) / 1000;
+        const lng = Math.round(event.longitude * 1000) / 1000;
+        const key = `${lat},${lng}`;
+        useClusterMode = eventGroups[key] && eventGroups[key].length > 1;
       }
+
+      return (
+        <g 
+          key={event.id}
+          className={`event-point ${isSelected ? 'selected' : ''} ${useClusterMode ? 'clustered' : 'individual'}`}
+        >
+          {this.renderCategoryIcon(event, x, y, useClusterMode)}
+          {/* Larger invisible click area */}
+          <circle
+            cx={x}
+            cy={y}
+            r="20"
+            fill="transparent"
+            stroke="none"
+            style={{ 
+              cursor: 'pointer',
+              pointerEvents: 'all'
+            }}
+            onClick={(e) => this.handleEventClick(e, event)}
+          />
+          {isSelected && (
+            <circle
+              className="event-hover"
+              cx={x}
+              cy={y}
+              r="16"
+              stroke="#fff"
+              strokeWidth="3"
+              fill="none"
+              opacity="0.8"
+              style={{ pointerEvents: 'none' }}
+            />
+          )}
+        </g>
+      );
     });
 
     return (
-      <SelectedEvents
-        svg={this.svgRef.current}
-        selected={totalMarkers}
-        projectPoint={this.projectPoint}
-        styles={this.props.ui.mapSelectedEvents}
-      />
+      <Portal node={this.svgRef.current}>
+        <g className="event-points">
+          {renderedEvents}
+        </g>
+      </Portal>
     );
   }
 
@@ -555,8 +462,6 @@ class Map extends React.Component {
         {this.renderRegions()}
         {this.renderNarratives()}
         {this.renderEvents()}
-        {this.renderClusters()}
-        {this.renderSelected()}
       </>
     ) : null;
 
@@ -588,13 +493,13 @@ function mapStateToProps(state) {
       categories: selectors.getCategories(state),
       sites: selectors.selectSites(state),
       regions: selectors.selectRegions(state),
+      events: selectors.selectEvents(state),
     },
     app: {
       views: state.app.associations.views,
       selected: selectors.selectSelected(state),
       highlighted: state.app.highlighted,
       map: state.app.map,
-      cluster: state.app.cluster,
       language: state.app.language,
       loading: state.app.loading,
       narrative: state.app.associations.narrative,
@@ -611,7 +516,6 @@ function mapStateToProps(state) {
       mapSelectedEvents: state.ui.style.selectedEvents,
       regions: state.ui.style.regions,
       eventRadius: state.ui.eventRadius,
-      radial: state.ui.style.clusters.radial,
       filterColors: state.ui.coloring.colors,
     },
     features: selectors.getFeatures(state),

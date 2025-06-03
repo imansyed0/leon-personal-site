@@ -229,3 +229,43 @@
     cursor: inherit;
   }
 }
+
+.event-points {
+  .event-point {
+    cursor: pointer;
+
+    &.selected {
+      z-index: 1000;
+    }
+
+    &.clustered {
+      .cluster-marker {
+        transition: all 0.3s ease;
+      }
+    }
+
+    &.individual {
+      .event-icon {
+        transition: opacity 0.3s ease;
+      }
+    }
+
+    .cluster-marker {
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .event-icon {
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .event-hover {
+      pointer-events: none;
+    }
+
+    .event-fallback {
+      pointer-events: none;
+    }
+  }
+}
