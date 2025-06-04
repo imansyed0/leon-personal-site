@@ -262,8 +262,8 @@ class Toolbar extends React.Component {
           <TabList>
             <ToolbarButton
               key="overview"
-              label="Overview"
-              iconKey="globe"
+              label="Full Timeline"
+              iconKey="view_timeline"
               isActive={false}
               onClick={() => {
                 this.goToOverview();
