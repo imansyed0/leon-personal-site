@@ -413,7 +413,6 @@ class Map extends React.Component {
       if (zoomLevel < 8) {
         const lat = Math.round(event.latitude * 1000) / 1000;
         const lng = Math.round(event.longitude * 1000) / 1000;
-        const key = `${lat},${lng}`;
         const groupedEvents = eventGroups[`${event.latitude}_${event.longitude}`];
         useClusterMode = groupedEvents && groupedEvents.length > 1;
       }
