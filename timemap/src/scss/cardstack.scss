@@ -1,4 +1,4 @@
-// @import 'burger';
+@import 'burger';
 @import "card";
 
 $card-stack-header-height: 38px;
@@ -6,25 +6,34 @@ $card-stack-header-height: 38px;
   position: absolute;
   top: calc(#{$card-right} + #{$card-stack-header-height});
   right: $card-right;
-  max-height: calc(100% - #{$timeline-height} + 60px);
+  max-height: calc(100vh - #{$timeline-height} + 60px);
+  min-height: auto;
   height: auto;
   width: $card-width;
-  overflow-y: scroll;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  min-width: $card-width;
+  max-width: $card-width;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.5), 0 15px 12px rgba(0, 0, 0, 0.3);
   z-index: $header;
-  color: white;
+  color: #ffffff;
+  background-color: #000000;
   overflow-x: hidden;
-  overflow-y: auto;
-
+  border: 1px solid #333333;
+  
   &.narrative-mode {
     right: $card-right;
     left: auto;
     top: $narrative-info-height + 32px;
-    height: calc(100% - #{$narrative-info-height} - #{$timeline-height} - 32px);
+    height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 60px);
+    max-height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 60px);
+    min-height: auto;
   }
 
   &.full-height {
-    max-height: calc(100% - 20px);
+    max-height: calc(100vh - 40px);
+    height: calc(100vh - 40px);
+    min-height: 500px;
   }
 
   .card-stack-header {
@@ -33,17 +42,27 @@ $card-stack-header-height: 38px;
     min-height: $card-stack-header-height;
     line-height: $card-stack-header-height;
     width: $card-width;
+    min-width: $card-width;
+    max-width: $card-width;
     box-sizing: border-box;
     padding: 0 5px;
-    background: $black;
+    background: #000000;
     border-radius: 2px;
-    border: 1px solid $black;
+    border: 1px solid #333333;
     font-size: $large;
+    font-family: $mainfont, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
     transition: 0.2s ease;
     text-align: left;
+    color: #ffffff;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     &:hover {
       transition: 0.2s ease;
+      background: #111111;
+      border-color: #555555;
     }
 
     .header-copy {
@@ -51,6 +70,8 @@ $card-stack-header-height: 38px;
       padding: 0 10px;
       line-height: 20px;
       text-align: right;
+      color: #ffffff;
+      font-weight: 500;
 
       &.top {
         padding-top: 10px;
@@ -68,17 +89,28 @@ $card-stack-header-height: 38px;
 
       span {
         width: 20px;
+        background: #ffffff !important;
+      }
+      
+      span::before,
+      span::after {
+        background: #ffffff !important;
       }
     }
   }
 
   .card-stack-content {
     width: $card-width;
+    min-width: $card-width;
+    max-width: $card-width;
+    box-sizing: border-box;
+    background-color: #000000;
 
     ul {
       padding: 0;
       margin-top: 1px;
       margin-bottom: 0;
+      background-color: #000000;
     }
 
     .card-list {
