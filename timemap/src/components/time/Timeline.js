@@ -605,7 +605,7 @@ function mapStateToProps(state) {
     domain: {
       events: selectors.selectStackedEvents(state),
       allEvents: selectors.getEvents(state),
-      eventCountInTimeRange: selectors.selectEventCountInTimeRange(state),
+      eventCountInTimeRange: selectors.selectFilteredEventCount(state),
       projects: selectors.selectProjects(state),
       narratives: state.domain.narratives,
     },

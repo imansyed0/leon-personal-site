@@ -117,11 +117,11 @@ export const selectEvents = createSelector(
         event.shape && activeShapes.includes(event.shape.id);
       if (event.type === SHAPE) {
         if (isActiveShape && isActiveCategory && isActiveTime) {
-          acc[event.id] = { ...event };
+          acc.push(event);
         }
       } else {
         if (isActiveFilter && isActiveCategory && isActiveTime) {
-          acc[event.id] = { ...event };
+          acc.push(event);
         }
       }
       return acc;
@@ -143,6 +143,16 @@ export const selectEventCountInTimeRange = createSelector(
       },
       0
     )
+);
+
+/**
+ * Count of currently filtered and visible events (respects category filters, etc.)
+ */
+export const selectFilteredEventCount = createSelector(
+  [selectEvents],
+  (filteredEvents) => {
+    return filteredEvents.length;
+  }
 );
 
 /**
