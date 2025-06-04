@@ -32,9 +32,9 @@ $card-stack-header-height: 38px;
   &.narrative-mode {
     right: $card-right;
     left: auto;
-    top: $narrative-info-height;
-    height: calc(100vh - #{$narrative-info-height});
-    max-height: calc(100vh - #{$narrative-info-height});
+    top: $narrative-info-height - 40px;
+    height: calc(100vh - #{$narrative-info-height - 40px});
+    max-height: calc(100vh - #{$narrative-info-height - 40px});
     min-height: auto;
   }
 
