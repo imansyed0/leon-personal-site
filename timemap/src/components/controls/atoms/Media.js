@@ -30,7 +30,6 @@ const Media = ({ src, title }) => {
   }, []);
 
   const type = typeForPath(src);
-  console.log('Media type:', type, 'for src:', src);
   
   const formattedTitle =
     title && title.length > TITLE_LENGTH

@@ -34,34 +34,35 @@ class Dashboard extends React.Component {
     this.handleHighlight = this.handleHighlight.bind(this);
     this.setNarrative = this.setNarrative.bind(this);
     this.setNarrativeFromFilters = this.setNarrativeFromFilters.bind(this);
+    this.setTimelineRangeFromEvents = this.setTimelineRangeFromEvents.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.getCategoryColor = this.getCategoryColor.bind(this);
     this.findEventIdx = this.findEventIdx.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.selectNarrativeStep = this.selectNarrativeStep.bind(this);
     this.state = {
-      isIntroVisible: true
+      isIntroVisible: true,
+      hasExitedOverviewOnce: false
     };
   }
 
   componentDidMount() {
     if (!this.props.app.isMobile) {
+      console.log("Layout: Starting fetchDomain");
       this.props.actions.fetchDomain().then((domain) => {
+        console.log("Layout: fetchDomain completed with domain:", domain);
+        console.log("Layout: Events count:", domain.events?.length || 0);
+        console.log("Layout: First few events:", domain.events?.slice(0, 3));
+        
         const { actions, features } = this.props;
+        console.log("Layout: Calling updateDomain");
         actions.updateDomain({ domain, features });
         actions.rehydrateState();
         
-        // Auto-trigger Overview if no existing narrative or selection state
-        setTimeout(() => {
-          // Check current state from props after rehydration
-          if (!this.props.app.associations.narrative && 
-              this.props.app.selected.length === 0 &&
-              this.props.domain.events && this.props.domain.events.length > 0) {
-            // Keep loading active during Overview setup
-            this.props.actions.setLoading();
-            this.triggerAutoOverview();
-          }
-        }, 100); // Reduced delay since we're managing loading ourselves
+        // Calculate and set timeline range from validated events
+        this.setTimelineRangeFromEvents(domain.events);
+        
+        // Note: Removed auto-overview trigger - app now starts with full timeline range by default
       });
     }
     // NOTE: hack to get the timeline to always show. Not entirely sure why
@@ -69,25 +70,47 @@ class Dashboard extends React.Component {
     window.dispatchEvent(new Event("resize"));
   }
 
-  triggerAutoOverview() {
-    const { events, sources } = this.props.domain;
+  setTimelineRangeFromEvents(events) {
+    console.log("Layout: setTimelineRangeFromEvents called with events:", events?.length || 0);
     
-    // Create the same overview narrative as in Toolbar.js
-    const overviewNarrative = {
-      id: "overview-all-events",
-      label: "Overview - All Events", 
-      description: "A chronological view of all events in the dataset",
-      steps: events
-        .map(insetSourceFrom(sources))
-        .sort((a, b) => a.datetime - b.datetime)
-    };
-    
-    this.setNarrative(overviewNarrative);
-    
-    // Small delay to ensure narrative is fully rendered before hiding loading
+    if (!events || events.length === 0) {
+      console.log("Layout: No events provided for timeline range calculation");
+      return;
+    }
+
+    // Wait a tick for domain to be updated, then calculate range from the validated events in the store
     setTimeout(() => {
-      this.props.actions.setNotLoading();
-    }, 300);
+      const validatedEvents = this.props.domain.events;
+      console.log("Layout: Using validated events for timeline range:", validatedEvents?.length || 0);
+      
+      if (!validatedEvents || validatedEvents.length === 0) {
+        console.log("Layout: No validated events available yet");
+        return;
+      }
+
+      const validDates = validatedEvents
+        .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
+        .map((ev) => ev.datetime.getTime());
+
+      if (validDates.length === 0) {
+        console.log("Layout: No valid dates found in validated events");
+        return;
+      }
+
+      let minMs = Math.min(...validDates);
+      let maxMs = Math.max(...validDates);
+
+      // Add 10% padding on both sides for nicer view
+      const pad = Math.abs((maxMs - minMs) / 10);
+      minMs -= pad;
+      maxMs += pad;
+
+      const timelineRange = [new Date(minMs), new Date(maxMs)];
+      console.log("Layout: Calculated timeline range:", timelineRange);
+      
+      // Update the timeline range in the store
+      this.props.actions.updateTimeRange(timelineRange);
+    }, 100);
   }
 
   handleHighlight(highlighted) {
@@ -171,6 +194,20 @@ class Dashboard extends React.Component {
   }
 
   setNarrative(narrative) {
+    // Check if we're exiting the overview narrative for the first time
+    const isExitingOverview = this.props.app.associations.narrative?.id === "overview-all-events" && 
+                             (!narrative || narrative.id !== "overview-all-events");
+    
+    if (isExitingOverview && !this.state.hasExitedOverviewOnce) {
+      // Mark that we've exited overview once
+      this.setState({ hasExitedOverviewOnce: true });
+      
+      // Show InfoPopup after a brief delay
+      setTimeout(() => {
+        this.props.actions.toggleInfoPopup();
+      }, 500);
+    }
+
     // only handleSelect if narrative is not null and has associated events
     if (narrative && narrative.steps.length >= 1) {
       this.handleSelect([narrative.steps[0]]);

@@ -12,7 +12,7 @@ import Header from "./atoms/Header";
 import Axis from "./Axis";
 import Clip from "./atoms/Clip";
 import Handles from "./atoms/Handles.js";
-import ZoomControls from "./atoms/ZoomControls.js";
+import YearPicker from "./atoms/YearPicker.js";
 import Markers from "./atoms/Markers.js";
 import Events from "./atoms/Events.js";
 import Categories from "./Categories";
@@ -24,6 +24,9 @@ class Timeline extends React.Component {
     this.getDatetimeX = this.getDatetimeX.bind(this);
     this.getY = this.getY.bind(this);
     this.onApplyZoom = this.onApplyZoom.bind(this);
+    this.onYearSelect = this.onYearSelect.bind(this);
+    this.onShowFullRange = this.onShowFullRange.bind(this);
+    this.updateTimerangeFromProps = this.updateTimerangeFromProps.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDrag = this.onDrag.bind(this);
@@ -34,7 +37,7 @@ class Timeline extends React.Component {
       dims: props.dimensions,
       scaleX: null,
       scaleY: null,
-      timerange: [null, null], // two datetimes
+      timerange: props.app.timeline.range || [null, null], // Initialize from props
       dragPos0: null,
       transitionDuration: 300,
     };
@@ -42,10 +45,14 @@ class Timeline extends React.Component {
 
   componentDidMount() {
     this.addEventListeners();
+    // Ensure we have the correct timerange from props and initialize scaleX
+    this.updateTimerangeFromProps();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (hash(nextProps) !== hash(this.props)) {
+    // Always update timerange if it changed in the store
+    if (hash(nextProps.app.timeline.range) !== hash(this.props.app.timeline.range)) {
+      console.log("Timeline: Updating timerange from:", this.props.app.timeline.range, "to:", nextProps.app.timeline.range);
       this.setState({
         timerange: nextProps.app.timeline.range,
         scaleX: this.makeScaleX(),
@@ -71,10 +78,6 @@ class Timeline extends React.Component {
     ) {
       this.computeDims();
     }
-
-    // nextProps.domain.events.forEach(e => {
-    // });
-    // this.props.methods.onSelect()
   }
 
   addEventListeners() {
@@ -359,6 +362,93 @@ class Timeline extends React.Component {
     this.props.methods.onSelect(event);
   }
 
+  /**
+   * Apply year selection to timeline - zoom to show the entire selected year
+   * @param {number} year: selected year
+   */
+  onYearSelect(year) {
+    if (!year) return;
+    
+    // Set timeline to show the entire year
+    const yearStart = new Date(year, 0, 1); // January 1st
+    const yearEnd = new Date(year + 1, 0, 1); // January 1st of next year
+    
+    this.setState(
+      {
+        timerange: [yearStart, yearEnd],
+      },
+      () => {
+        this.props.actions.updateTicks(15);
+        this.props.methods.onUpdateTimerange(this.state.timerange);
+      }
+    );
+  }
+
+  // Get current year from timeline state for the YearPicker
+  getCurrentYear() {
+    if (!this.state.timerange || !this.state.timerange[0] || !this.state.timerange[1]) return null;
+    
+    const startDate = this.state.timerange[0];
+    const endDate = this.state.timerange[1];
+    const startYear = startDate.getFullYear();
+    const endYear = endDate.getFullYear();
+    
+    // Check if this is roughly a single year view (within same year and roughly 12 months)
+    const timeDiff = endDate.getTime() - startDate.getTime();
+    const yearInMs = 365.25 * 24 * 60 * 60 * 1000; // Account for leap years
+    const isYearView = startYear === endYear || timeDiff <= yearInMs * 1.5; // Allow some tolerance
+    
+    // If it's a year view, return the year, otherwise return null (full range)
+    return isYearView ? startYear : null;
+  }
+
+  // Return to full range view
+  onShowFullRange() {
+    const { allEvents } = this.props.domain;
+    
+    if (!allEvents || allEvents.length === 0) return;
+    
+    // Calculate full range from all events (same logic as setTimelineFromDomain)
+    const validDates = allEvents
+      .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
+      .map((ev) => ev.datetime.getTime());
+    
+    if (validDates.length === 0) return;
+    
+    let minMs = Math.min(...validDates);
+    let maxMs = Math.max(...validDates);
+    
+    // Add 10% padding on both sides for nicer view
+    const pad = Math.abs((maxMs - minMs) / 10);
+    minMs -= pad;
+    maxMs += pad;
+    
+    const fullRange = [new Date(minMs), new Date(maxMs)];
+    
+    this.setState(
+      {
+        timerange: fullRange,
+      },
+      () => {
+        this.props.actions.updateTicks(15);
+        this.props.methods.onUpdateTimerange(this.state.timerange);
+      }
+    );
+  }
+
+  updateTimerangeFromProps() {
+    if (this.props.app.timeline.range && this.props.app.timeline.range[0] && this.props.app.timeline.range[1]) {
+      console.log("Timeline: Setting initial timerange from props:", this.props.app.timeline.range);
+      this.setState({
+        timerange: this.props.app.timeline.range,
+      }, () => {
+        this.setState({
+          scaleX: this.makeScaleX(),
+        });
+      });
+    }
+  }
+
   render() {
     const { isNarrative, app, domain } = this.props;
 
@@ -450,11 +540,12 @@ class Timeline extends React.Component {
                   }}
                 />
               )}
-              <ZoomControls
-                extent={this.getTimeScaleExtent()}
-                zoomLevels={this.props.app.timeline.zoomLevels}
+              <YearPicker
+                events={this.props.domain.allEvents}
                 dims={dims}
-                onApplyZoom={this.onApplyZoom}
+                onYearSelect={this.onYearSelect}
+                onShowFullRange={this.onShowFullRange}
+                currentYear={this.getCurrentYear()}
               />
               <Markers
                 dims={dims}
@@ -507,6 +598,7 @@ function mapStateToProps(state) {
     activeCategories: selectors.getActiveCategories(state),
     domain: {
       events: selectors.selectStackedEvents(state),
+      allEvents: selectors.getEvents(state),
       eventCountInTimeRange: selectors.selectEventCountInTimeRange(state),
       projects: selectors.selectProjects(state),
       narratives: state.domain.narratives,

@@ -121,17 +121,8 @@ export function fetchDomain() {
         }
         dispatch(toggleFetchingDomain());
 
-        // set timeline range and write to url
-        if (result.events && result.events.length) {
-          const times = result.events
-            .filter((e) => e.datetime instanceof Date && !isNaN(e.datetime))
-            .map((e) => e.datetime.getTime());
-          if (times.length) {
-            const min = new Date(Math.min(...times));
-            const max = new Date(Math.max(...times));
-            dispatch(updateTimeRange([min, max]));
-          }
-        }
+        // The timeline range will be calculated in the reducer after validation
+        // since events need to be processed first to have proper datetime objects
 
         dispatch({ type: SET_TIMELINE_FROM_DOMAIN, payload: result });
         dispatch(setInitialCategories(result.associations));

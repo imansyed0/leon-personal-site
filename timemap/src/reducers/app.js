@@ -316,6 +316,7 @@ function updateSearchQuery(appState, action) {
 }
 
 function setTimelineFromDomain(appState, action) {
+  // This reducer is kept for compatibility but timeline range is now calculated in Layout
   // Determine min and max datetime from fetched events
   const events = action.payload.events || [];
 
@@ -323,7 +324,9 @@ function setTimelineFromDomain(appState, action) {
     .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
     .map((ev) => ev.datetime.getTime());
 
-  if (validDates.length === 0) return appState;
+  if (validDates.length === 0) {
+    return appState;
+  }
 
   let minMs = Math.min(...validDates);
   let maxMs = Math.max(...validDates);
@@ -333,11 +336,13 @@ function setTimelineFromDomain(appState, action) {
   minMs -= pad;
   maxMs += pad;
 
+  const newRange = [new Date(minMs), new Date(maxMs)];
+
   return {
     ...appState,
     timeline: {
       ...appState.timeline,
-      range: [new Date(minMs), new Date(maxMs)],
+      range: newRange,
     },
   };
 }
@@ -368,7 +373,6 @@ function app(appState = initial.app, action) {
       return updateNarrativeStepIdx(appState, action);
     case UPDATE_SOURCE:
       return updateSource(appState, action);
-    /* toggles */
     case TOGGLE_LANGUAGE:
       return toggleLanguage(appState, action);
     case TOGGLE_SITES:
@@ -385,7 +389,6 @@ function app(appState = initial.app, action) {
       return toggleNotifications(appState);
     case TOGGLE_COVER:
       return toggleCover(appState);
-    /* errors */
     case FETCH_ERROR:
       return fetchError(appState, action);
     case FETCH_SOURCE_ERROR:

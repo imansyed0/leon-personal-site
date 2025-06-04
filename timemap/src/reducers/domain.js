@@ -4,9 +4,14 @@ import { UPDATE_DOMAIN, MARK_NOTIFICATIONS_READ } from "../actions";
 import { validateDomain } from "./validate/validators.js";
 
 function updateDomain(domainState, action) {
+  console.log("Domain reducer: updateDomain called with:", action.payload);
+  const validatedDomain = validateDomain(action.payload.domain, action.payload.features);
+  console.log("Domain reducer: validated domain:", validatedDomain);
+  console.log("Domain reducer: Events count after validation:", validatedDomain.events?.length || 0);
+  
   return {
     ...domainState,
-    ...validateDomain(action.payload.domain, action.payload.features),
+    ...validatedDomain,
   };
 }
 
