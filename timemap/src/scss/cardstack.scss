@@ -33,8 +33,8 @@ $card-stack-header-height: 38px;
     right: $card-right;
     left: auto;
     top: $narrative-info-height;
-    height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 87px);
-    max-height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 87px);
+    height: calc(100vh - #{$narrative-info-height});
+    max-height: calc(100vh - #{$narrative-info-height});
     min-height: auto;
   }
 
