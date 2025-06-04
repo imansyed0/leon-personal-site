@@ -13,7 +13,7 @@ $card-stack-header-height: 38px;
   min-width: $card-width;
   max-width: $card-width;
   box-sizing: border-box;
-  overflow-y: hidden;
+  overflow-y: auto;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.5), 0 15px 12px rgba(0, 0, 0, 0.3);
   z-index: $header;
   color: #ffffff;
@@ -21,12 +21,20 @@ $card-stack-header-height: 38px;
   overflow-x: hidden;
   border: 1px solid #333333;
   
+  /* Hide scrollbar but keep scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
   &.narrative-mode {
     right: $card-right;
     left: auto;
-    top: $narrative-info-height + 32px;
-    height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 60px);
-    max-height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 60px);
+    top: $narrative-info-height;
+    height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 87px);
+    max-height: calc(100vh - #{$narrative-info-height} - #{$timeline-height} + 87px);
     min-height: auto;
   }
 
