@@ -204,9 +204,9 @@ class Dashboard extends React.Component {
   setNarrative(narrative) {
     console.log("setNarrative called with:", narrative);
     
-    // Check if we're exiting the overview narrative for the first time
+    // Check if we're exiting the overview narrative for the first time to go to a specific narrative
     const isExitingOverview = this.props.app.associations.narrative?.id === "overview-all-events" && 
-                             (!narrative || narrative.id !== "overview-all-events");
+                             (narrative && narrative.id !== "overview-all-events");
     
     if (isExitingOverview && !this.state.hasExitedOverviewOnce) {
       // Mark that we've exited overview once
@@ -241,6 +241,9 @@ class Dashboard extends React.Component {
     // only handleSelect if narrative is not null and has associated events
     if (narrative && narrative.steps.length >= 1) {
       this.handleSelect([narrative.steps[0]]);
+    } else if (!narrative) {
+      // Clear selection when exiting narrative mode
+      this.props.actions.updateSelected([]);
     }
     this.props.actions.updateNarrative(narrative);
   }
