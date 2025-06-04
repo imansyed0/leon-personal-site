@@ -360,24 +360,49 @@ class Map extends React.Component {
     const zoomLevel = this.state.currentZoom;
     console.log('Current zoom level:', zoomLevel);
 
-    // Group events by location at low zoom levels for clustering
+    // Group events by location for both clustering and offset positioning
     const eventGroups = {};
-    if (zoomLevel < 8) {
-      events.forEach(event => {
-        // Round coordinates to group nearby events
-        const lat = Math.round(event.latitude * 1000) / 1000;
-        const lng = Math.round(event.longitude * 1000) / 1000;
-        const key = `${lat},${lng}`;
-        
-        if (!eventGroups[key]) {
-          eventGroups[key] = [];
-        }
-        eventGroups[key].push(event);
-      });
-    }
+    events.forEach(event => {
+      // Use exact coordinates for grouping
+      const key = `${event.latitude}_${event.longitude}`;
+      
+      if (!eventGroups[key]) {
+        eventGroups[key] = [];
+      }
+      eventGroups[key].push(event);
+    });
 
-    const renderedEvents = events.map(event => {
-      const { x, y } = this.projectPoint([event.latitude, event.longitude]);
+    // Calculate offsets for overlapping events when showing individual icons
+    const eventsWithOffsets = [];
+    Object.values(eventGroups).forEach(group => {
+      if (group.length === 1) {
+        // Single event - no offset needed
+        eventsWithOffsets.push({ ...group[0], offsetX: 0, offsetY: 0 });
+      } else {
+        // Multiple events at same location - apply circular offset pattern
+        group.forEach((event, index) => {
+          let offsetX = 0;
+          let offsetY = 0;
+          
+          // Only apply offsets when showing individual icons (not clusters)
+          if (zoomLevel >= 13) {
+            const radius = 50; // Offset radius in pixels
+            const angle = (2 * Math.PI * index) / group.length;
+            offsetX = Math.cos(angle) * radius;
+            offsetY = Math.sin(angle) * radius;
+          }
+          
+          eventsWithOffsets.push({ ...event, offsetX, offsetY });
+        });
+      }
+    });
+
+    const renderedEvents = eventsWithOffsets.map(event => {
+      const { x: baseX, y: baseY } = this.projectPoint([event.latitude, event.longitude]);
+      
+      // Apply calculated offsets
+      const x = baseX + (event.offsetX || 0);
+      const y = baseY + (event.offsetY || 0);
       
       const isSelected = this.props.app.selected.some(
         selected => selected.id === event.id
@@ -389,7 +414,8 @@ class Map extends React.Component {
         const lat = Math.round(event.latitude * 1000) / 1000;
         const lng = Math.round(event.longitude * 1000) / 1000;
         const key = `${lat},${lng}`;
-        useClusterMode = eventGroups[key] && eventGroups[key].length > 1;
+        const groupedEvents = eventGroups[`${event.latitude}_${event.longitude}`];
+        useClusterMode = groupedEvents && groupedEvents.length > 1;
       }
 
       return (

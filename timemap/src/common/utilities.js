@@ -152,7 +152,7 @@ export function getImmediateFilterParent(filter) {
  */
 export function getFilterSiblings(allFilters, filterParent, filterKey) {
   function findSiblings(filterPathObj, ancestors) {
-    if (ancestors.length === 0 || filterPathObj === {}) return {};
+    if (ancestors.length === 0 || Object.keys(filterPathObj).length === 0) return {};
     const nextAncestor = ancestors.shift();
     if (Object.keys(filterPathObj).includes(nextAncestor)) {
       const nextObjToSearch = filterPathObj[nextAncestor];
