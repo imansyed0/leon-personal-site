@@ -128,7 +128,7 @@ class Toolbar extends React.Component {
               >
                 {/* <p>{narr.id}</p> */}
                 <p>
-                  <small>{trimAndEllipse(narr.desc, 120)}</small>
+                  <small>{trimAndEllipse(narr.title, 120)}</small>
                 </p>
               </button>
             </div>
