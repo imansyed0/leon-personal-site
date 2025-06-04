@@ -130,14 +130,17 @@ export const selectEvents = createSelector(
 );
 
 /**
- * Of all available events, select only those that fall within the currently selected time range and have a location attached.
- * Since `events` is a sparse array, we need to reduce the array in order to count.
+ * Of all available events, select only those that fall within the currently selected time range.
+ * This counts ALL events in the time range, regardless of active filters/categories.
  */
 export const selectEventCountInTimeRange = createSelector(
-  [selectEvents],
+  [getEvents, getTimeRange],
   (events, timeRange) =>
     events.reduce(
-      (acc, curr) => (curr.latitude && curr.longitude ? acc + 1 : acc),
+      (acc, event) => {
+        const isInTimeRange = isTimeRangedIn(event, timeRange);
+        return isInTimeRange ? acc + 1 : acc;
+      },
       0
     )
 );
