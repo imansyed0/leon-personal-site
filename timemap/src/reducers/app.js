@@ -69,24 +69,17 @@ function updateColoringSet(appState, action) {
 }
 
 function updateNarrative(appState, action) {
+  // Keep current timeline range - don't override it since Layout handles timeline range logic
   let minTime = appState.timeline.range[0];
   let maxTime = appState.timeline.range[1];
 
   const cornerBound0 = [180, 180];
   const cornerBound1 = [-180, -180];
 
-  // Compute narrative time range and map bounds
+  // Compute map bounds for narrative (but leave timeline range alone)
   if (action.narrative) {
-    // Forced to comment out min and max time changes, not sure why?
-    minTime = appState.timeline.rangeLimits[0];
-    maxTime = appState.timeline.rangeLimits[1];
-
-    // Find max and mins coordinates of narrative events
+    // Find max and mins coordinates of narrative events for map bounds
     action.narrative.steps.forEach((step) => {
-      const stepTime = step.datetime;
-      if (stepTime < minTime) minTime = stepTime;
-      if (stepTime > maxTime) maxTime = stepTime;
-
       if (!!step.longitude && !!step.latitude) {
         if (+step.longitude < cornerBound0[1])
           cornerBound0[1] = +step.longitude;
@@ -96,6 +89,7 @@ function updateNarrative(appState, action) {
         if (+step.latitude > cornerBound1[0]) cornerBound1[0] = +step.latitude;
       }
     });
+    
     // Adjust bounds to center around first event, while keeping visible all others
     // Takes first event, finds max ditance with first attempt bounds, and use this max distance
     // on the other side, both in latitude and longitude
@@ -115,19 +109,8 @@ function updateNarrative(appState, action) {
       if (firstToLat0 < firstToLat1)
         cornerBound0[0] = +first.latitude - firstToLat1;
     }
-
-    // Add some buffer on both sides of the time extent (in ms)
-    const minMs =
-      minTime instanceof Date ? minTime.getTime() : Number(minTime);
-    const maxMs =
-      maxTime instanceof Date ? maxTime.getTime() : Number(maxTime);
-
-    const bufferedMin = minMs - Math.abs((maxMs - minMs) / 10);
-    const bufferedMax = maxMs + Math.abs((maxMs - minMs) / 10);
-
-    minTime = new Date(bufferedMin);
-    maxTime = new Date(bufferedMax);
   }
+
   // Fallback: if somehow still not Dates, convert.
   if (!(minTime instanceof Date)) minTime = new Date(minTime);
   if (!(maxTime instanceof Date)) maxTime = new Date(maxTime);
@@ -144,7 +127,7 @@ function updateNarrative(appState, action) {
     },
     timeline: {
       ...appState.timeline,
-      range: [minTime, maxTime],
+      range: [minTime, maxTime], // Keep existing range instead of overriding
     },
   };
 }

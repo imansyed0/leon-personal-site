@@ -35,6 +35,8 @@ class Dashboard extends React.Component {
     this.setNarrative = this.setNarrative.bind(this);
     this.setNarrativeFromFilters = this.setNarrativeFromFilters.bind(this);
     this.setTimelineRangeFromEvents = this.setTimelineRangeFromEvents.bind(this);
+    this.setTimelineToFullRange = this.setTimelineToFullRange.bind(this);
+    this.setTimelineToNarrativeRange = this.setTimelineToNarrativeRange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.getCategoryColor = this.getCategoryColor.bind(this);
     this.findEventIdx = this.findEventIdx.bind(this);
@@ -194,6 +196,8 @@ class Dashboard extends React.Component {
   }
 
   setNarrative(narrative) {
+    console.log("setNarrative called with:", narrative);
+    
     // Check if we're exiting the overview narrative for the first time
     const isExitingOverview = this.props.app.associations.narrative?.id === "overview-all-events" && 
                              (!narrative || narrative.id !== "overview-all-events");
@@ -208,11 +212,90 @@ class Dashboard extends React.Component {
       }, 500);
     }
 
+    // Update timeline range based on narrative
+    if (narrative) {
+      console.log("Narrative detected, ID:", narrative.id);
+      if (narrative.id === "overview-all-events") {
+        console.log("Overview narrative - setting full range");
+        // For overview narrative, show full range of all events
+        this.setTimelineToFullRange();
+      } else if (narrative.steps && narrative.steps.length > 0) {
+        console.log("Specific narrative - setting narrative range, steps:", narrative.steps.length);
+        // For specific narratives, show range of narrative events
+        this.setTimelineToNarrativeRange(narrative.steps);
+      } else {
+        console.log("Narrative has no steps or empty steps");
+      }
+    } else {
+      console.log("No narrative - setting full range");
+      // When clearing narrative, return to full range
+      this.setTimelineToFullRange();
+    }
+
     // only handleSelect if narrative is not null and has associated events
     if (narrative && narrative.steps.length >= 1) {
       this.handleSelect([narrative.steps[0]]);
     }
     this.props.actions.updateNarrative(narrative);
+  }
+
+  setTimelineToFullRange() {
+    const { events } = this.props.domain;
+    
+    if (!events || events.length === 0) return;
+    
+    // Calculate full range from all events
+    const validDates = events
+      .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
+      .map((ev) => ev.datetime.getTime());
+    
+    if (validDates.length === 0) return;
+    
+    let minMs = Math.min(...validDates);
+    let maxMs = Math.max(...validDates);
+    
+    // Add 10% padding on both sides for nicer view
+    const pad = Math.abs((maxMs - minMs) / 10);
+    minMs -= pad;
+    maxMs += pad;
+    
+    const fullRange = [new Date(minMs), new Date(maxMs)];
+    this.props.actions.updateTimeRange(fullRange);
+  }
+
+  setTimelineToNarrativeRange(narrativeSteps) {
+    console.log("setTimelineToNarrativeRange called with steps:", narrativeSteps?.length);
+    
+    if (!narrativeSteps || narrativeSteps.length === 0) {
+      console.log("No narrative steps - returning early");
+      return;
+    }
+    
+    // Calculate range from narrative events
+    const validDates = narrativeSteps
+      .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
+      .map((ev) => ev.datetime.getTime());
+    
+    console.log("Valid dates from narrative steps:", validDates.length);
+    
+    if (validDates.length === 0) {
+      console.log("No valid dates in narrative steps - returning early");
+      return;
+    }
+    
+    let minMs = Math.min(...validDates);
+    let maxMs = Math.max(...validDates);
+    
+    console.log("Narrative date range:", new Date(minMs), "to", new Date(maxMs));
+    
+    // Add 15% padding on both sides for narrative view
+    const pad = Math.abs((maxMs - minMs) / 6.67); // 15% padding
+    minMs -= pad;
+    maxMs += pad;
+    
+    const narrativeRange = [new Date(minMs), new Date(maxMs)];
+    console.log("Setting narrative timeline range:", narrativeRange);
+    this.props.actions.updateTimeRange(narrativeRange);
   }
 
   setNarrativeFromFilters(withSteps) {
