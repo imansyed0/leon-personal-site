@@ -54,7 +54,7 @@ const YearPicker = ({ events, dims, onYearSelect, onShowFullRange, currentYear }
       setIsFullRange(false);
       setSelectedYear(middleYear);
     }
-  }, [currentYear, years.length]);
+  }, [currentYear, years, isInternalUpdate, selectedYear]);
 
   // Handle year selection
   const handleYearClick = (year) => {
@@ -161,12 +161,10 @@ const YearPicker = ({ events, dims, onYearSelect, onShowFullRange, currentYear }
     // In year mode, calculate normally but always leave room for "All" at top
     const selectedIndex = years.indexOf(selectedYear);
     const startIndex = Math.max(0, selectedIndex - centerIndex + 1); // +1 to leave room for "All"
-    const endIndex = Math.min(years.length, startIndex + visibleItems - 1); // -1 for "All"
     
     adjustedStartIndex = Math.max(0, Math.min(startIndex, years.length - visibleItems + 1));
-    const adjustedEndIndex = Math.min(years.length, adjustedStartIndex + visibleItems - 1);
     
-    visibleYears = years.slice(adjustedStartIndex, adjustedEndIndex);
+    visibleYears = years.slice(adjustedStartIndex, adjustedStartIndex + visibleItems - 1);
   }
   
   // Position for the year picker
