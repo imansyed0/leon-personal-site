@@ -107,6 +107,12 @@ class Dashboard extends React.Component {
       minMs -= pad;
       maxMs += pad;
 
+      // Ensure the end date doesn't go beyond today
+      const today = new Date().getTime();
+      if (maxMs > today) {
+        maxMs = today;
+      }
+
       const timelineRange = [new Date(minMs), new Date(maxMs)];
       console.log("Layout: Calculated timeline range:", timelineRange);
       
@@ -259,6 +265,12 @@ class Dashboard extends React.Component {
     minMs -= pad;
     maxMs += pad;
     
+    // Ensure the end date doesn't go beyond today
+    const today = new Date().getTime();
+    if (maxMs > today) {
+      maxMs = today;
+    }
+    
     const fullRange = [new Date(minMs), new Date(maxMs)];
     this.props.actions.updateTimeRange(fullRange);
   }
@@ -292,6 +304,12 @@ class Dashboard extends React.Component {
     const pad = Math.abs((maxMs - minMs) / 6.67); // 15% padding
     minMs -= pad;
     maxMs += pad;
+    
+    // Ensure the end date doesn't go beyond today
+    const today = new Date().getTime();
+    if (maxMs > today) {
+      maxMs = today;
+    }
     
     const narrativeRange = [new Date(minMs), new Date(maxMs)];
     console.log("Setting narrative timeline range:", narrativeRange);

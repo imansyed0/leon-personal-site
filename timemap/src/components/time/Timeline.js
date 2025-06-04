@@ -423,6 +423,12 @@ class Timeline extends React.Component {
     minMs -= pad;
     maxMs += pad;
     
+    // Ensure the end date doesn't go beyond today
+    const today = new Date().getTime();
+    if (maxMs > today) {
+      maxMs = today;
+    }
+    
     const fullRange = [new Date(minMs), new Date(maxMs)];
     
     this.setState(
