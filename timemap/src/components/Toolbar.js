@@ -102,7 +102,7 @@ class Toolbar extends React.Component {
     const overviewNarrative = {
       id: "overview-all-events",
       label: "Overview - All Events",
-      description: "A chronological view of all events in the dataset",
+      description: "A full timeline of all events in the dataset. Use the arrows to cycle between events.",
       steps: events
         .map(insetSourceFrom(sources))  // Use the existing utility function
         .sort((a, b) => a.datetime - b.datetime) // Sort by datetime
