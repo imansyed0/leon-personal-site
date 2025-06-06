@@ -33,7 +33,7 @@
       "dest": "/api/index.js"
     },
     {
-      "src": "/(api|images)/(.*)",
+      "src": "^/(api|images)/(.*)",
       "dest": "/api/index.js"
     },
     {
@@ -41,18 +41,10 @@
       "dest": "/timemap/"
     },
     {
-      "src": "^/$",
-      "dest": "/timemap/"
-    },
-    {
       "handle": "filesystem"
     },
     {
       "src": "/guapinol/(.*)",
-      "dest": "/timemap/$1"
-    },
-    {
-      "src": "/(.*)",
       "dest": "/timemap/$1"
     }
   ]
