@@ -65,6 +65,17 @@ async function getExpressApp() {
         }
       });
     });
+    
+    // Handle /guapinol/images path as well
+    app.use('/guapinol/images', (req, res, next) => {
+      const imagePath = path.join(__dirname, '../src/public/images', req.path.replace('/guapinol', ''));
+      res.sendFile(imagePath, err => {
+        if (err) {
+          console.error('Error sending image:', err);
+          res.status(404).send('Image not found');
+        }
+      });
+    });
 
     let controllerReadyResolve;
     const controllerReady = new Promise((resolve) => (controllerReadyResolve = resolve));
@@ -87,19 +98,23 @@ async function getExpressApp() {
     });
 
     initialize((controller) => {
-      app.use(
-        createMiddleware({
-          config,
-          controller,
-        })
-      );
-      app.use(
-        '/api',
-        createApi({
-          config,
-          controller,
-        })
-      );
+      const middleware = createMiddleware({
+        config,
+        controller,
+      });
+      const apiRouter = createApi({
+        config,
+        controller,
+      });
+      
+      // Apply middleware to both path prefixes
+      app.use(middleware);
+      app.use('/guapinol', middleware);
+      
+      // Handle both /api and /guapinol/api paths
+      app.use('/api', apiRouter);
+      app.use('/guapinol/api', apiRouter);
+      
       app.use(express.static(path.join(__dirname, '../src/public')));
 
       // Wait until all blueprints are built before marking the app as ready.
