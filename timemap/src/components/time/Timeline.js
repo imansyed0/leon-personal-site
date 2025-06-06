@@ -55,7 +55,6 @@ class Timeline extends React.Component {
       console.log("Timeline: Updating timerange from:", this.props.app.timeline.range, "to:", nextProps.app.timeline.range);
       this.setState({
         timerange: nextProps.app.timeline.range,
-        scaleX: this.makeScaleX(),
       });
     }
 
@@ -444,7 +443,6 @@ class Timeline extends React.Component {
 
   updateTimerangeFromProps() {
     if (this.props.app.timeline.range && this.props.app.timeline.range[0] && this.props.app.timeline.range[1]) {
-      console.log("Timeline: Setting initial timerange from props:", this.props.app.timeline.range);
       this.setState({
         timerange: this.props.app.timeline.range,
       }, () => {

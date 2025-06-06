@@ -61,19 +61,15 @@ class Map extends React.Component {
       this.map.fitBounds(bounds);
     } else {
       if (!isIdentical(nextProps.app.selected, this.props.app.selected)) {
-        console.log('Selected events changed:', nextProps.app.selected);
         // Fly to first of events selected
         const eventPoint =
           nextProps.app.selected.length > 0 ? nextProps.app.selected[0] : null;
-
-        console.log('Event point to zoom to:', eventPoint);
 
         if (
           eventPoint !== null &&
           eventPoint.latitude &&
           eventPoint.longitude
         ) {
-          console.log('Zooming to:', eventPoint.latitude, eventPoint.longitude);
           this.map.setView(
             [eventPoint.latitude, eventPoint.longitude],
             Math.max(this.map.getZoom(), 16), // Ensure minimum zoom level of 16 for significant zoom
@@ -330,21 +326,12 @@ class Map extends React.Component {
   handleEventClick = (e, event) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('=== EVENT CLICKED ===');
-    console.log('Event clicked:', event);
-    console.log('Event ID:', event.id);
-    console.log('Methods prop:', this.props.methods);
-    console.log('Actions prop:', this.props.actions);
     
     // Try using methods first, fallback to actions
     if (this.props.methods && this.props.methods.onSelect) {
-      console.log('Using methods.onSelect');
       this.props.methods.onSelect([event]);
     } else if (this.props.actions && this.props.actions.updateSelected) {
-      console.log('Using actions.updateSelected as fallback');
       this.props.actions.updateSelected([event]);
-    } else {
-      console.error('No selection method available');
     }
   }
 
@@ -358,7 +345,6 @@ class Map extends React.Component {
     );
 
     const zoomLevel = this.state.currentZoom;
-    console.log('Current zoom level:', zoomLevel);
 
     // Group events by location for both clustering and offset positioning
     const eventGroups = {};

@@ -58,7 +58,6 @@ async function getExpressApp() {
     // Add direct image serving from src/public/images
     app.use('/images', (req, res, next) => {
       const imagePath = path.join(__dirname, '../src/public/images', req.path);
-      console.log('Serving image from:', imagePath);
       res.sendFile(imagePath, err => {
         if (err) {
           console.error('Error sending image:', err);

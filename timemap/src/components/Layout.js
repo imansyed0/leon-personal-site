@@ -50,14 +50,8 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     if (!this.props.app.isMobile) {
-      console.log("Layout: Starting fetchDomain");
       this.props.actions.fetchDomain().then((domain) => {
-        console.log("Layout: fetchDomain completed with domain:", domain);
-        console.log("Layout: Events count:", domain.events?.length || 0);
-        console.log("Layout: First few events:", domain.events?.slice(0, 3));
-        
         const { actions, features } = this.props;
-        console.log("Layout: Calling updateDomain");
         actions.updateDomain({ domain, features });
         actions.rehydrateState();
         
@@ -73,20 +67,15 @@ class Dashboard extends React.Component {
   }
 
   setTimelineRangeFromEvents(events) {
-    console.log("Layout: setTimelineRangeFromEvents called with events:", events?.length || 0);
-    
     if (!events || events.length === 0) {
-      console.log("Layout: No events provided for timeline range calculation");
       return;
     }
 
     // Wait a tick for domain to be updated, then calculate range from the validated events in the store
     setTimeout(() => {
       const validatedEvents = this.props.domain.events;
-      console.log("Layout: Using validated events for timeline range:", validatedEvents?.length || 0);
       
       if (!validatedEvents || validatedEvents.length === 0) {
-        console.log("Layout: No validated events available yet");
         return;
       }
 
@@ -95,7 +84,6 @@ class Dashboard extends React.Component {
         .map((ev) => ev.datetime.getTime());
 
       if (validDates.length === 0) {
-        console.log("Layout: No valid dates found in validated events");
         return;
       }
 
@@ -114,7 +102,6 @@ class Dashboard extends React.Component {
       }
 
       const timelineRange = [new Date(minMs), new Date(maxMs)];
-      console.log("Layout: Calculated timeline range:", timelineRange);
       
       // Update the timeline range in the store
       this.props.actions.updateTimeRange(timelineRange);
@@ -202,8 +189,6 @@ class Dashboard extends React.Component {
   }
 
   setNarrative(narrative) {
-    console.log("setNarrative called with:", narrative);
-    
     // Check if we're exiting the overview narrative for the first time to go to a specific narrative
     const isExitingOverview = this.props.app.associations.narrative?.id === "overview-all-events" && 
                              (narrative && narrative.id !== "overview-all-events");
@@ -220,20 +205,14 @@ class Dashboard extends React.Component {
 
     // Update timeline range based on narrative
     if (narrative) {
-      console.log("Narrative detected, ID:", narrative.id);
       if (narrative.id === "overview-all-events") {
-        console.log("Overview narrative - setting full range");
         // For overview narrative, show full range of all events
         this.setTimelineToFullRange();
       } else if (narrative.steps && narrative.steps.length > 0) {
-        console.log("Specific narrative - setting narrative range, steps:", narrative.steps.length);
         // For specific narratives, show range of narrative events
         this.setTimelineToNarrativeRange(narrative.steps);
-      } else {
-        console.log("Narrative has no steps or empty steps");
       }
     } else {
-      console.log("No narrative - setting full range");
       // When clearing narrative, return to full range
       this.setTimelineToFullRange();
     }
@@ -279,10 +258,7 @@ class Dashboard extends React.Component {
   }
 
   setTimelineToNarrativeRange(narrativeSteps) {
-    console.log("setTimelineToNarrativeRange called with steps:", narrativeSteps?.length);
-    
     if (!narrativeSteps || narrativeSteps.length === 0) {
-      console.log("No narrative steps - returning early");
       return;
     }
     
@@ -291,17 +267,12 @@ class Dashboard extends React.Component {
       .filter((ev) => ev.datetime instanceof Date && !isNaN(ev.datetime))
       .map((ev) => ev.datetime.getTime());
     
-    console.log("Valid dates from narrative steps:", validDates.length);
-    
     if (validDates.length === 0) {
-      console.log("No valid dates in narrative steps - returning early");
       return;
     }
     
     let minMs = Math.min(...validDates);
     let maxMs = Math.max(...validDates);
-    
-    console.log("Narrative date range:", new Date(minMs), "to", new Date(maxMs));
     
     // Add 15% padding on both sides for narrative view
     const pad = Math.abs((maxMs - minMs) / 6.67); // 15% padding
@@ -315,7 +286,6 @@ class Dashboard extends React.Component {
     }
     
     const narrativeRange = [new Date(minMs), new Date(maxMs)];
-    console.log("Setting narrative timeline range:", narrativeRange);
     this.props.actions.updateTimeRange(narrativeRange);
   }
 
