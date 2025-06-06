@@ -1,7 +1,14 @@
+// Determine SERVER_ROOT based on environment
+// In local development (npm run dev or vercel dev): empty string
+// In production deployment on Vercel: /guapinol
+const SERVER_ROOT = (process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production')
+  ? '/guapinol' 
+  : '';
+
 module.exports = {
   title: 'guapinol timemap',
   display_title: 'guapinol timemap',
-  SERVER_ROOT: '',
+  SERVER_ROOT,
   EVENTS_EXT: '/api/timemap_data/export_events/deeprows',
   ASSOCIATIONS_EXT: '/api/timemap_data/export_associations/deeprows',
   SOURCES_EXT: '/api/timemap_data/export_sources/deepids',

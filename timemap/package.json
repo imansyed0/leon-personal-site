@@ -2,7 +2,7 @@
   "name": "timemap",
   "version": "0.1.0",
   "description": "",
-  "homepage": ".",
+  "homepage": "/guapinol/",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider node scripts/start.js",
