@@ -111,6 +111,11 @@ async function getExpressApp() {
       app.use(middleware);
       app.use('/guapinol', middleware);
       
+      // Serve blank page at root
+      app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, '../src/public/index.html'));
+      });
+      
       // Handle both /api and /guapinol/api paths
       app.use('/api', apiRouter);
       app.use('/guapinol/api', apiRouter);

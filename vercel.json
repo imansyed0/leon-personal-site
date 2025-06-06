@@ -29,6 +29,10 @@
   ],
   "routes": [
     {
+      "src": "^/$",
+      "dest": "/api/index.js"
+    },
+    {
       "src": "/guapinol/(api|images)(/.*)?",
       "dest": "/api/index.js"
     },
