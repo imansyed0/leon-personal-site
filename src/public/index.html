@@ -1,11 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leon Elliott</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBFAF7;
+    --ink: #1B1A17;
+    --muted: #6B675E;
+    --rule: #D9D5CB;
+    --accent: #5A3A2E;
+    --maxw: 720px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 19px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(3rem, 9vw, 7rem) clamp(1.5rem, 6vw, 3rem) 5rem;
+  }
+
+  /* Masthead */
+  header { margin-bottom: clamp(3rem, 8vw, 5.5rem); }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 9vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.5rem;
+  }
+
+  .intro {
+    font-family: "Newsreader", Georgia, serif;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    color: var(--muted);
+    margin: 0;
+  }
+  .intro .sep { margin: 0 0.6em; font-style: normal; }
+  .intro-link {
+    font-style: normal;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .intro-link:hover, .intro-link:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  /* Menu */
+  .menu { margin-top: clamp(2.5rem, 7vw, 4rem); }
+
+  .group { border-top: 1px solid var(--rule); }
+  .group:last-of-type { border-bottom: 1px solid var(--rule); }
+
+  .group-label {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    color: var(--ink);
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    transition: color 0.25s ease;
+  }
+  .group-label:hover,
+  .group-label:focus-visible { color: var(--accent); outline: none; }
+  .group-label:focus-visible { box-shadow: inset 3px 0 0 var(--accent); padding-left: 0.65rem; }
+
+  .chev {
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-bottom: 0.25rem;
+  }
+  .group.open .chev { transform: rotate(225deg); margin-bottom: -0.1rem; }
+
+  /* Collapsed by default, expands when .open is set */
+  ul.entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.34s ease, opacity 0.3s ease;
+  }
+  .group.open ul.entries { max-height: 120rem; opacity: 1; }
+
+  ul.entries li { border-top: 1px solid var(--rule); }
+
+  a.entry {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem 0 1rem 1.2rem;
+    transition: padding-left 0.25s ease, color 0.25s ease;
+  }
+  a.entry:hover, a.entry:focus-visible {
+    padding-left: 1.85rem;
+    color: var(--accent);
+    outline: none;
+  }
+  a.entry:focus-visible { box-shadow: inset 3px 0 0 var(--accent); }
+
+  .entry-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .entry-title em { font-style: italic; }
+
+  .entry-meta {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1rem;
+    margin-top: 0.2rem;
+  }
+
+  .placeholder a.entry { color: var(--muted); }
+  .placeholder .entry-title { font-style: italic; }
+  .note-li { border-top: 1px solid var(--rule); }
+  .note {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0;
+    padding: 1rem 0 1rem 1.2rem;
+  }
+
+  footer {
+    margin-top: clamp(4rem, 10vw, 7rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  footer a:hover { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.entry { transition: none; }
+  }
+</style>
 </head>
 <body>
-    <!-- Blank page -->
+  <div class="wrap">
+    <header>
+      <h1>Leon Elliott</h1>
+      <p class="intro">Selected writings and research<span class="sep">&middot;</span><a href="https://uk.linkedin.com/in/leon-elliott-39642b168" target="_blank" rel="noopener" class="intro-link">LinkedIn</a></p>
+    </header>
+
+    <nav class="menu">
+      <div class="group">
+        <button class="group-label" aria-expanded="false" aria-controls="m-research">
+          Solo research projects
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <ul class="entries" id="m-research">          <li>
+            <a class="entry" href="https://www.leonelliott.co.uk/guapinol?range=2011-10-31&amp;range=2026-06-15">
+              <div class="entry-title">Guapinol Timemap</div>
+              <div class="entry-meta">An interactive timeline of a struggle for environmental justice in Guapinol, Honduras, 2011&ndash;2026</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <button class="group-label" aria-expanded="false" aria-controls="m-writing">
+          Writing
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <ul class="entries" id="m-writing">
+          <li>
+            <a class="entry" href="https://activistswithoutborders.org.uk/cop30-power-and-protest-at-the-indigenous-cop/" target="_blank" rel="noopener">
+              <div class="entry-title">COP30: Power and Protest at the &lsquo;Indigenous COP&rsquo;</div>
+              <div class="entry-meta">Activists Without Borders &middot; 2026</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://lab.org.uk/honduras-interactive-tool-guapinol-anti-mining-struggles/" target="_blank" rel="noopener">
+              <div class="entry-title">Honduras: Interactive Tool Traces Developments in Guapinol Anti-Mining Struggles</div>
+              <div class="entry-meta">Latin America Bureau &middot; 2025</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <button class="group-label" aria-expanded="false" aria-controls="m-translations">
+          Translations
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <ul class="entries" id="m-translations">
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/mexico-community-library/" target="_blank" rel="noopener">
+              <div class="entry-title">The Community Library</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2026</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/wherever-i-go-i-just-want-to-learn/" target="_blank" rel="noopener">
+              <div class="entry-title">Wherever I Go, I Just Want to Learn</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2025</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/fourth-world-peoples-university-bolivia/" target="_blank" rel="noopener">
+              <div class="entry-title">Fourth World People&rsquo;s University in Bolivia: A Transformative Space</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2025</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/street-library-guatemala/" target="_blank" rel="noopener">
+              <div class="entry-title">The Street Library: Harnessing Children&rsquo;s Creativity</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2025</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/xun-ciin-ceto-morales/" target="_blank" rel="noopener">
+              <div class="entry-title">Xun Ciin Ceto Morales</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2025</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/reading-club/" target="_blank" rel="noopener">
+              <div class="entry-title">Reading Club: A Meaningful Experience</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2024</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/tapori-switzerland/" target="_blank" rel="noopener">
+              <div class="entry-title">Tapori Switzerland: Three Different Realities, One Shared Goal</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2024</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/violence-against-women-in-bolivia/" target="_blank" rel="noopener">
+              <div class="entry-title">Violence against Women in Poverty in Bolivia</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2023</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/violence-against-women-in-poverty/" target="_blank" rel="noopener">
+              <div class="entry-title">Violence against Women in Poverty</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2023</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.atd-fourthworld.org/street-library-in-peru/" target="_blank" rel="noopener">
+              <div class="entry-title">This is What I Want to Do</div>
+              <div class="entry-meta">ATD Fourth World &middot; 2023</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://contracorriente.red/en/2023/01/25/deaths-of-environmental-activists-re-open-wounds-in-aguan-valley/" target="_blank" rel="noopener">
+              <div class="entry-title">Deaths of Environmental Activists Re-open Wounds in Aguán Valley</div>
+              <div class="entry-meta">Contra Corriente &middot; 2023</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://lab.org.uk/crimes-against-guapinol-defenders-reflect-neglect-from-honduran-government/" target="_blank" rel="noopener">
+              <div class="entry-title">Crimes against Guapinol Defenders Reflect Neglect from Honduran Government</div>
+              <div class="entry-meta">Latin America Bureau &middot; 2023</div>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.iccaconsortium.org/2022/09/01/reflections-luciano-united-nations-ocean-conference/" target="_blank" rel="noopener">
+              <div class="entry-title">Reflections from the 2022 UN Ocean Conference: A Long Way to Go</div>
+              <div class="entry-meta">ICCA Consortium &middot; 2022</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <footer>
+      <span>&copy; Leon Elliott</span>
+      <span><a href="mailto:hello@leonelliott.co.uk">Contact</a></span>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      var groups = Array.prototype.slice.call(document.querySelectorAll('.group'));
+      var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+      function open(g)  { g.classList.add('open');  g.querySelector('.group-label').setAttribute('aria-expanded', 'true'); }
+      function close(g) { g.classList.remove('open'); g.querySelector('.group-label').setAttribute('aria-expanded', 'false'); }
+      function closeAll(except) { groups.forEach(function (g) { if (g !== except) close(g); }); }
+
+      groups.forEach(function (g) {
+        var btn = g.querySelector('.group-label');
+
+        // Click / tap toggles (works on all devices, incl. keyboard Enter/Space)
+        btn.addEventListener('click', function () {
+          var isOpen = g.classList.contains('open');
+          closeAll(g);
+          if (isOpen) { close(g); } else { open(g); }
+        });
+
+        // Hover opens on desktop pointers; only one open at a time
+        if (canHover) {
+          g.addEventListener('mouseenter', function () { closeAll(g); open(g); });
+          g.addEventListener('mouseleave', function () { close(g); });
+        }
+      });
+
+      // Close on outside click and on Escape
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.group')) closeAll(null);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeAll(null);
+      });
+    })();
+  </script>
 </body>
-</html> 
+</html>
