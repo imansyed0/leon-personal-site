@@ -39,7 +39,23 @@
   }
 
   /* Masthead */
+  .masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
   header { margin-bottom: 0; }
+
+  .avatar {
+    width: clamp(72px, 14vw, 100px);
+    height: clamp(72px, 14vw, 100px);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: block;
+  }
 
   h1 {
     font-family: "Fraunces", Georgia, serif;
@@ -200,10 +216,15 @@
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <h1>Leon Elliott</h1>
-    </header>
-    <p class="current">Read a selection of my research and writing below. <a href="https://uk.linkedin.com/in/leon-elliott-39642b168" target="_blank" rel="noopener" class="intro-link">LinkedIn</a></p>
+    <div class="masthead">
+      <div>
+        <header>
+          <h1>Leon Elliott</h1>
+        </header>
+        <p class="current">Read a selection of my research and writing below. <a href="https://uk.linkedin.com/in/leon-elliott-39642b168" target="_blank" rel="noopener" class="intro-link">LinkedIn</a></p>
+      </div>
+      <img src="/images/avatar.png" alt="Leon Elliott" class="avatar">
+    </div>
 
     <nav class="menu">
       <div class="group">
