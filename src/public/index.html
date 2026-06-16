@@ -400,7 +400,6 @@
   <script>
     (function () {
       var groups = Array.prototype.slice.call(document.querySelectorAll('.group'));
-      var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       function open(g)  { g.classList.add('open');  g.querySelector('.group-label').setAttribute('aria-expanded', 'true'); }
       function close(g) { g.classList.remove('open'); g.querySelector('.group-label').setAttribute('aria-expanded', 'false'); }
@@ -409,18 +408,11 @@
       groups.forEach(function (g) {
         var btn = g.querySelector('.group-label');
 
-        // Click / tap toggles (works on all devices, incl. keyboard Enter/Space)
         btn.addEventListener('click', function () {
           var isOpen = g.classList.contains('open');
           closeAll(g);
           if (isOpen) { close(g); } else { open(g); }
         });
-
-        // Hover opens on desktop pointers; only one open at a time
-        if (canHover) {
-          g.addEventListener('mouseenter', function () { closeAll(g); open(g); });
-          g.addEventListener('mouseleave', function () { close(g); });
-        }
       });
 
       // Close on outside click and on Escape
