@@ -45,6 +45,15 @@
       "dest": "/timemap/"
     },
     {
+      "src": "^/refugee-homelessness$",
+      "status": 308,
+      "headers": { "Location": "/refugee-homelessness/" }
+    },
+    {
+      "src": "^/refugee-homelessness/(.*)$",
+      "dest": "https://leonelliott1997-hash.github.io/Migrant-Homelessness-Dashboard/$1"
+    },
+    {
       "handle": "filesystem"
     },
     {
